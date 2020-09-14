@@ -1,31 +1,56 @@
 <template>
   <div class="home">
-    <div class="search">
-      <nut-searchbar
-        v-model="searchVal"
-        placeText="搜索"
-        customClass="searchInput"
-        searchBtnIconColor="#ffffff"
-      ></nut-searchbar>
-    </div>
-    <div>
-      <nut-tab @tab-switch="tabSwitch" :line-width="20">
-        <nut-tab-panel tab-title="乐库">乐库</nut-tab-panel>
-        <nut-tab-panel tab-title="推荐">推荐</nut-tab-panel>
-        <nut-tab-panel tab-title="视频">视频</nut-tab-panel>
-        <nut-tab-panel tab-title="排行榜">排行榜</nut-tab-panel>
-      </nut-tab>
+    <div v-if="homeData">
+      <div class="search">
+        <nut-searchbar
+          v-model="searchVal"
+          placeText="搜索"
+          customClass="searchInput"
+          searchBtnIconColor="#ffffff"
+        ></nut-searchbar>
+      </div>
+      <div>
+        <nut-tab @tab-switch="tabSwitch" :line-width="20">
+          <nut-tab-panel tab-title="乐库">
+            <nut-swiper
+              :paginationVisible="true"
+              direction="horizontal"
+              :swiperData="homeData.focus.data.content"
+              ref="demo1"
+            >
+              <div
+                v-for="(item,index) in homeData.focus.data.content"
+                :key="index"
+                class="nut-swiper-slide"
+              >
+              </div>
+            </nut-swiper>
+          </nut-tab-panel>
+          <nut-tab-panel tab-title="推荐">推荐</nut-tab-panel>
+          <nut-tab-panel tab-title="视频">视频</nut-tab-panel>
+          <nut-tab-panel tab-title="排行榜">排行榜</nut-tab-panel>
+        </nut-tab>
+      </div>
     </div>
   </div>
 </template>
 
 <script lang="ts">
+import { getRecommend } from "../assets/tool/port";
 import { Component, Vue } from "vue-property-decorator";
 @Component
 export default class Home extends Vue {
-  searchVal = "";
+  homeData: object | null = null; // 首页数据
+  searchVal = ""; // 搜索
+  created() {
+    getRecommend().then((res: any): void => {
+      if (res.status == 200) {
+        this.homeData = res.data.response;
+      }
+    });
+  }
   tabSwitch(e: string): void {
-    console.log(e, 'e');
+    console.log(e, "e");
   }
 }
 </script>
