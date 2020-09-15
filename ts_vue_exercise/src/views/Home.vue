@@ -227,7 +227,7 @@ export default class Home extends Vue {
               display: -webkit-box;
               -webkit-line-clamp: 2;
               line-clamp: 2;
-              -webkit-box-orient: vertical;
+              -webkit-box-orient: vertical; 
             }
           }
         }
