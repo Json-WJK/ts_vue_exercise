@@ -1,17 +1,44 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width,initial-scale=1.0">
-    <link rel="icon" href="<%= BASE_URL %>favicon.ico">
-    <title><%= htmlWebpackPlugin.options.title %></title>
-  </head>
-  <body>
-    <noscript>
-      <strong>We're sorry but <%= htmlWebpackPlugin.options.title %> doesn't work properly without JavaScript enabled. Please enable it to continue.</strong>
-    </noscript>
-    <div id="app"></div>
-    <!-- built files will be auto injected -->
-  </body>
+
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport"
+    content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=0">
+  <link rel="icon" href="<%= BASE_URL %>favicon.ico">
+  <title><%= htmlWebpackPlugin.options.title %></title>
+</head>
+
+<body>
+  <noscript>
+    <strong>We're sorry but <%= htmlWebpackPlugin.options.title %> doesn't work properly without JavaScript enabled.
+      Please enable it to continue.</strong>
+  </noscript>
+  <div id="app"></div>
+  <!-- <script>
+    !(function (win, doc) {
+      function setFontSize() {
+        var winWidth = window.innerWidth;
+        doc.documentElement.style.fontSize = (winWidth / 1080) * 100 + 'px';
+      }
+      var evt = 'onorientationchange' in win ? 'orientationchange' : 'resize';
+      var timer = null;
+      win.addEventListener(evt, function () {
+        clearTimeout(timer);
+        timer = setTimeout(setFontSize, 300);
+      }, false);
+      win.addEventListener("pageshow", function (e) {
+        if (e.persisted) {
+          clearTimeout(timer);
+          timer = setTimeout(setFontSize, 300);
+        }
+      }, false);
+      //初始化 
+      setFontSize();
+    }(window, document));
+  </script> -->
+  <!-- built files will be auto injected -->
+</body>
+
 </html>
