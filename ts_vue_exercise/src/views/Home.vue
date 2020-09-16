@@ -67,6 +67,26 @@
                     <nut-icon type="right" size="10px"></nut-icon>
                   </span>
                 </div>
+                <div class="personalized_content">
+                  <nut-scroller @jump="jump()">
+                    <div
+                      slot="list"
+                      class="nut-hor-list-item"
+                      v-for="(item, index) of personalized"
+                      :key="index"
+                    >
+                      <div v-for="(el, i) of item" :key="i" class="personalized_content_item">
+                        <div class="personalized_content_item_img">
+                          <img :src="el.picUrl" alt />
+                        </div>
+                        <div class="personalized_content_item_text">
+                          <div class="personalized_content_item_text_name">{{ el.name }}</div>
+                          <div class="personalized_content_item_text_copywriter">{{ el.copywriter }}</div>
+                        </div>
+                      </div>
+                    </div>
+                  </nut-scroller>
+                </div>
               </div>
             </div>
           </nut-tab-panel>
@@ -82,9 +102,9 @@ import { banner, personalizedNewsong, personalized } from "../assets/tool/port";
 import { Component, Vue } from "vue-property-decorator";
 @Component
 export default class Home extends Vue {
-  banners: object | null = null; // bannner
-  personalizedNewsong: object | null = null; // 新音乐推荐
-  personalized: object | null = null; // 新音乐推荐
+  banners: [] | null = null; // bannner
+  personalizedNewsong: [] | null = null; // 新音乐推荐
+  personalized = [[], []]; // 新音乐推荐
   searchVal = ""; // 搜索
   created() {
     personalizedNewsong().then((res): void => {
@@ -99,7 +119,10 @@ export default class Home extends Vue {
     });
     personalized().then((res): void => {
       if (res.status == 200) {
-        this.personalized = res.data.result;
+        res.data.result.map((item: object, index: number): void => {
+          index < 3 && this.personalized[0].push(item);
+          index >= 3 && this.personalized[1].push(item);
+        });
       }
     });
   }
@@ -236,6 +259,54 @@ export default class Home extends Vue {
             color: #666;
             display: flex;
             align-items: center;
+          }
+        }
+        &_content {
+          height: 200px;
+          width: 100%;
+          /deep/.nut-hor-list {
+            width: 605px;
+          }
+          &_item {
+            width: 290px;
+            height: 50px;
+            background: #eee;
+            display: flex;
+            align-items: center;
+            margin-top: 5px;
+            &_img {
+              width: 50px;
+              height: 50px;
+              img {
+                width: 100%;
+                height: 100%;
+              }
+            }
+            &_text {
+              height: 100%;
+              margin-left: 5px;
+              display: flex;
+              flex-flow: column;
+              justify-content: space-evenly;
+              width: 235px;
+              &_name {
+                font-weight: bold;
+                white-space: nowrap;
+                overflow: hidden;
+                text-overflow: ellipsis;
+                font-size: 13px;
+              }
+              &_copywriter {
+                color: #666;
+                white-space: nowrap;
+                overflow: hidden;
+                text-overflow: ellipsis;
+                font-size: 12px;
+              }
+            }
+          }
+          /deep/ .nut-hor-list-item:not(:first-child) {
+            margin-left: 5px;
           }
         }
       }
