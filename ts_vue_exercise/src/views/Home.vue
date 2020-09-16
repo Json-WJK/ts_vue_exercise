@@ -23,43 +23,49 @@
                   :swiperData="banners"
                   ref="demo1"
                 >
-                  <div
-                    v-for="(item,index) in banners"
-                    :key="index"
-                    class="nut-swiper-slide"
-                  >
+                  <div v-for="(item,index) in banners" :key="index" class="nut-swiper-slide">
                     <img :src="item.blurPicUrl" class="swiperImg" alt />
                   </div>
                 </nut-swiper>
               </div>
               <!-- 新音乐推荐 -->
-              <div class="recommended">
-                <div class="recommended_title">
+              <div class="personalizedNewsong">
+                <div class="personalizedNewsong_title">
                   <span>新音乐推荐</span>
                   <span>
                     更多
                     <nut-icon type="right" size="10px"></nut-icon>
                   </span>
                 </div>
-                <div class="recommended_content">
-                  <div class="recommended_content_item">
-                    <div class="recommended_content_img">
+                <div class="personalizedNewsong_content">
+                  <div class="personalizedNewsong_content_item">
+                    <div class="personalizedNewsong_content_img">
                       <img :src="personalizedNewsong[0].picUrl" alt />
                     </div>
-                    <div class="recommended_content_title">{{ personalizedNewsong[0].name }}</div>
+                    <div class="personalizedNewsong_content_title">{{ personalizedNewsong[0].name }}</div>
                   </div>
-                  <div class="recommended_content_item">
-                    <div class="recommended_content_img">
+                  <div class="personalizedNewsong_content_item">
+                    <div class="personalizedNewsong_content_img">
                       <img :src="personalizedNewsong[1].picUrl" alt />
                     </div>
-                    <div class="recommended_content_title">{{ personalizedNewsong[1].name }}</div>
+                    <div class="personalizedNewsong_content_title">{{ personalizedNewsong[1].name }}</div>
                   </div>
-                  <div class="recommended_content_item">
-                    <div class="recommended_content_img">
+                  <div class="personalizedNewsong_content_item">
+                    <div class="personalizedNewsong_content_img">
                       <img :src="personalizedNewsong[2].picUrl" alt />
                     </div>
-                    <div class="recommended_content_title">{{ personalizedNewsong[2].name }}</div>
+                    <div class="personalizedNewsong_content_title">{{ personalizedNewsong[2].name }}</div>
                   </div>
+                </div>
+              </div>
+              <!-- 推荐歌单 -->
+              <div class="personalized">
+                <div class="personalized_title">
+                  <span>推荐歌单</span>
+                  <span>
+                    更多
+                    <nut-icon type="right" size="10px"></nut-icon>
+                  </span>
                 </div>
               </div>
             </div>
@@ -72,12 +78,13 @@
 </template>
 
 <script lang="ts">
-import { banner, personalizedNewsong } from "../assets/tool/port";
+import { banner, personalizedNewsong, personalized } from "../assets/tool/port";
 import { Component, Vue } from "vue-property-decorator";
 @Component
 export default class Home extends Vue {
   banners: object | null = null; // bannner
   personalizedNewsong: object | null = null; // 新音乐推荐
+  personalized: object | null = null; // 新音乐推荐
   searchVal = ""; // 搜索
   created() {
     personalizedNewsong().then((res): void => {
@@ -88,6 +95,11 @@ export default class Home extends Vue {
     banner().then((res): void => {
       if (res.status == 200) {
         this.banners = res.data.albums;
+      }
+    });
+    personalized().then((res): void => {
+      if (res.status == 200) {
+        this.personalized = res.data.result;
       }
     });
   }
@@ -144,7 +156,7 @@ export default class Home extends Vue {
         }
       }
       // 新音乐推荐
-      .recommended {
+      .personalizedNewsong {
         width: 100%;
         box-sizing: border-box;
         padding: 0 10px;
@@ -176,7 +188,7 @@ export default class Home extends Vue {
             font-size: 0;
             line-height: 0;
             padding: 32% 0 0;
-            .recommended_content_img {
+            .personalizedNewsong_content_img {
               height: 100%;
               width: 100%;
               position: absolute;
@@ -188,7 +200,7 @@ export default class Home extends Vue {
                 border-radius: 5px;
               }
             }
-            .recommended_content_title {
+            .personalizedNewsong_content_title {
               height: 28px;
               margin-top: 5px;
               line-height: 14px;
@@ -202,6 +214,28 @@ export default class Home extends Vue {
               line-clamp: 2;
               -webkit-box-orient: vertical;
             }
+          }
+        }
+      }
+      // 推荐歌单
+      .personalized {
+        width: 100%;
+        box-sizing: border-box;
+        padding: 0 10px;
+        margin-top: 10px;
+        &_title {
+          display: flex;
+          align-items: center;
+          justify-content: space-between;
+          span:nth-child(1) {
+            font-size: 16px;
+            font-weight: bold;
+          }
+          span:nth-child(2) {
+            font-size: 12px;
+            color: #666;
+            display: flex;
+            align-items: center;
           }
         }
       }
