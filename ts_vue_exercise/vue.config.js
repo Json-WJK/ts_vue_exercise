@@ -10,6 +10,7 @@ module.exports = {
           '^/v1': ''
         }
       }
-    }
+    },
+    disableHostCheck: true
   }
 }
