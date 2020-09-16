@@ -104,7 +104,7 @@ import { Component, Vue } from "vue-property-decorator";
 export default class Home extends Vue {
   banners: [] | null = null; // bannner
   personalizedNewsong: [] | null = null; // 新音乐推荐
-  personalized = [[], []]; // 新音乐推荐
+  personalized: any = [[], []]; // 推荐歌单
   searchVal = ""; // 搜索
   created() {
     personalizedNewsong().then((res): void => {

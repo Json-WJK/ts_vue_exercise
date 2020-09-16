@@ -13,6 +13,7 @@
     "sourceMap": true,
     "baseUrl": ".",
     "noUnusedLocals": false,
+    "noImplicitAny": true,
     "types": [
       "webpack-env"
     ],
