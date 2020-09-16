@@ -11,6 +11,7 @@ module.exports = {
         }
       }
     },
+    port: 1234,
     disableHostCheck: true
   }
 }
