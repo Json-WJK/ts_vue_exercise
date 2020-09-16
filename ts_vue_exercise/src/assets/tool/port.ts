@@ -1,5 +1,6 @@
 
-import { get, post } from './axios';
+import { get } from './axios';
 
-export const personalizedNewsong: any = (): any => get('/personalized/newsong') // 推荐新音乐
-export const banner: any = (): any => get('/top/album') // banner
+export const banner = () => get('/top/album') // banner
+export const personalizedNewsong = () => get('/personalized/newsong') // 推荐新音乐
+export const recommendResource = () => get('/recommend/resource') // 每日推荐歌单

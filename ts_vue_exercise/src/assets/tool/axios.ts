@@ -1,18 +1,18 @@
 
 import axios from 'axios'
 
-const instance: any = axios.create({
+const instance = axios.create({
   // baseURL: 'http://noname.wang:3000',
   baseURL: '/v1',
   timeout: 15000
 });
 
-const get: any =
-  (url: string, params: object | null | undefined): any =>
+const get =
+  (url: string, params?: object | null | undefined) =>
     instance.get(url, { params })
 
-const post: any =
-  (url: string, data: object | null | undefined): any =>
+const post =
+  (url: string, data?: object | null | undefined) =>
     instance.post(url, data)
 
 export {

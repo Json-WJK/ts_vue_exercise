@@ -18,6 +18,7 @@
                 <nut-swiper
                   :paginationVisible="true"
                   direction="horizontal"
+                  :autoPlay="3000"
                   :loop="true"
                   :swiperData="banners"
                   ref="demo1"
@@ -79,12 +80,12 @@ export default class Home extends Vue {
   personalizedNewsong: object | null = null; // 新音乐推荐
   searchVal = ""; // 搜索
   created() {
-    personalizedNewsong().then((res: any): void => {
+    personalizedNewsong().then((res): void => {
       if (res.status == 200) {
         this.personalizedNewsong = res.data.result;
       }
     });
-    banner().then((res: any): void => {
+    banner().then((res): void => {
       if (res.status == 200) {
         this.banners = res.data.albums;
       }
