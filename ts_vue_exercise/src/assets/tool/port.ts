@@ -5,4 +5,5 @@ export const personalizedPrivatecontent = () => get('/personalized/privateconten
 export const personalizedNewsong = () => get('/personalized/newsong') // 推荐新音乐
 export const personalized = () => get('/personalized') // 每日推荐歌单
 export const toplist = () => get('/toplist') // toplist
-export const playlistAll = () => get('/playlist/all') // playlistAll
+export const topArtist = (data: object) => get('/top/artist', data) // 热门歌手
+

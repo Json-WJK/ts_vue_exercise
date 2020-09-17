@@ -1,15 +1,19 @@
 <template>
   <div class="home">
     <div v-if="personalizedNewsong">
-      <div class="search">
+      <!-- <div class="search">
         <nut-searchbar
           v-model="searchVal"
           placeText="搜索"
           customClass="searchInput"
           searchBtnIconColor="#ffffff"
         ></nut-searchbar>
-      </div>
+      </div>-->
       <div class="mainContent">
+        <!-- 搜索icon -->
+        <div class="searchIcon">
+          <nut-icon type="search" color="#fff" size="15px"></nut-icon>
+        </div>
         <nut-tab @tab-switch="tabSwitch" :line-width="20">
           <nut-tab-panel tab-title="乐库">
             <div class="tab1">
@@ -94,7 +98,46 @@
               </div>
             </div>
           </nut-tab-panel>
-          <nut-tab-panel tab-title="排行榜">排行榜</nut-tab-panel>
+          <nut-tab-panel tab-title="排行榜">
+            <div class="tab2">
+              <!-- 热门歌手 -->
+              <div class="topArtist">
+                <div class="topArtist_title">
+                  <span>热门歌手</span>
+                  <span>
+                    更多
+                    <nut-icon type="right" size="10px"></nut-icon>
+                  </span>
+                </div>
+                <div class="topArtist_content">
+                  <div v-for="(item, index) in topArtist" :key="index" class="topArtistItem">
+                    <div class="img">
+                      <img :src="item.img1v1Url" alt />
+                    </div>
+                    <div class="name">{{ item.name }}</div>
+                  </div>
+                </div>
+              </div>
+              <!-- 音乐榜单 -->
+              <div class="toplist">
+                <div class="toplist_title">
+                  <span>音乐榜单</span>
+                  <span>
+                    更多
+                    <nut-icon type="right" size="10px"></nut-icon>
+                  </span>
+                </div>
+                <div class="toplist_content">
+                  <div v-for="(item, index) in toplist" :key="index" class="toplistItem">
+                    <div class="img">
+                      <img :src="item.coverImgUrl" alt />
+                    </div>
+                    <div class="name">{{ item.name }}</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </nut-tab-panel>
         </nut-tab>
       </div>
     </div>
@@ -106,7 +149,8 @@ import {
   personalizedPrivatecontent,
   personalizedNewsong,
   personalized,
-  toplist
+  toplist,
+  topArtist
 } from "../assets/tool/port";
 import { Component, Vue } from "vue-property-decorator";
 @Component
@@ -116,6 +160,7 @@ export default class Home extends Vue {
   personalized: any = [[], []]; // 推荐歌单
   toplist: [] | null = null; // toplist
   playlistAll: [] | null = null; // playlistAll
+  topArtist: [] | null = null; // topArtist
   searchVal = ""; // 搜索
   created() {
     personalizedNewsong().then((res): void => {
@@ -138,10 +183,14 @@ export default class Home extends Vue {
     });
     toplist().then((res): void => {
       if (res.status == 200) {
-        this.toplist = res.data.result;
+        this.toplist = res.data.list;
       }
-    })
-    
+    });
+    topArtist({ offset: 1, type: 1, limit: 3 }).then((res): void => {
+      if (res.status == 200) {
+        this.topArtist = res.data.artists;
+      }
+    });
   }
   tabSwitch(e: string): void {
     console.log(e, "e");
@@ -158,6 +207,9 @@ export default class Home extends Vue {
     box-sizing: border-box;
     padding: 10px 20px 0;
     background: linear-gradient(to right, #34a8aa, #009697);
+    position: fixed;
+    top: 0;
+    left: 0;
     .searchInput {
       height: 100%;
     }
@@ -167,6 +219,20 @@ export default class Home extends Vue {
   }
   // 主体内容
   .mainContent {
+    position: fixed;
+    left: 0;
+    width: 100%;
+    height: calc(100vh);
+    // 搜索框icon
+    .searchIcon {
+      position: absolute;
+      top: 0;
+      right: 10px;
+      height: 40px;
+      display: flex;
+      align-items: center;
+      z-index: 1;
+    }
     /deep/ .nut-tab {
       padding: 0;
       border: none;
@@ -191,6 +257,8 @@ export default class Home extends Vue {
       .nut-tab-item {
         padding: 0;
         border: none;
+        height: calc(100vh - 40px);
+        overflow: auto;
       }
     }
     .tab1 {
@@ -330,6 +398,100 @@ export default class Home extends Vue {
           }
           /deep/ .nut-hor-list-item:not(:first-child) {
             margin-left: 5px;
+          }
+        }
+      }
+    }
+    .tab2 {
+      // 热门歌手
+      .topArtist {
+        width: 100%;
+        box-sizing: border-box;
+        padding: 0 10px;
+        margin-top: 10px;
+        &_title {
+          display: flex;
+          align-items: center;
+          justify-content: space-between;
+          span:nth-child(1) {
+            font-size: 16px;
+            font-weight: bold;
+          }
+          span:nth-child(2) {
+            font-size: 12px;
+            color: #666;
+            display: flex;
+            align-items: center;
+          }
+        }
+        &_content {
+          margin-top: 10px;
+          width: 100%;
+          display: flex;
+          justify-content: space-between;
+          .topArtistItem {
+            width: 32%;
+            .img {
+              width: 100%;
+              img {
+                width: 100%;
+                border-radius: 10px;
+                box-shadow: rgb(200, 200, 200) 0px 0px 10px;
+              }
+            }
+            .name {
+              width: 100%;
+              text-align: center;
+              font-size: 13px;
+            }
+          }
+        }
+      }
+      // 音乐榜单
+      .toplist {
+        width: 100%;
+        box-sizing: border-box;
+        padding: 0 10px;
+        margin-top: 10px;
+        &_title {
+          display: flex;
+          align-items: center;
+          justify-content: space-between;
+          span:nth-child(1) {
+            font-size: 16px;
+            font-weight: bold;
+          }
+          span:nth-child(2) {
+            font-size: 12px;
+            color: #666;
+            display: flex;
+            align-items: center;
+          }
+        }
+        &_content {
+          margin-top: 10px;
+          width: 100%;
+          display: flex;
+          flex-wrap: wrap;
+          justify-content: space-between;
+          .toplistItem {
+            width: 80px;
+            margin-bottom: 10px;
+            .img {
+              width: 100%;
+              img {
+                width: 100%;
+                border-radius: 5px;
+              }
+            }
+            .name {
+              width: 100%;
+              text-align: center;
+              font-size: 12px;
+              white-space: nowrap;
+              text-overflow: ellipsis;
+              overflow: hidden;
+            }
           }
         }
       }
