@@ -20,11 +20,15 @@
                   direction="horizontal"
                   :autoPlay="3000"
                   :loop="true"
-                  :swiperData="banners"
+                  :swiperData="personalizedPrivatecontent"
                   ref="demo1"
                 >
-                  <div v-for="(item,index) in banners" :key="index" class="nut-swiper-slide">
-                    <img :src="item.blurPicUrl" class="swiperImg" alt />
+                  <div
+                    v-for="(item,index) in personalizedPrivatecontent"
+                    :key="index"
+                    class="nut-swiper-slide"
+                  >
+                    <img :src="item.sPicUrl" class="swiperImg" alt />
                   </div>
                 </nut-swiper>
               </div>
@@ -98,11 +102,15 @@
 </template>
 
 <script lang="ts">
-import { banner, personalizedNewsong, personalized } from "../assets/tool/port";
+import {
+  personalizedPrivatecontent,
+  personalizedNewsong,
+  personalized
+} from "../assets/tool/port";
 import { Component, Vue } from "vue-property-decorator";
 @Component
 export default class Home extends Vue {
-  banners: [] | null = null; // bannner
+  personalizedPrivatecontent: [] | null = null; // 独家放送bannber
   personalizedNewsong: [] | null = null; // 新音乐推荐
   personalized: any = [[], []]; // 推荐歌单
   searchVal = ""; // 搜索
@@ -112,9 +120,9 @@ export default class Home extends Vue {
         this.personalizedNewsong = res.data.result;
       }
     });
-    banner().then((res): void => {
+    personalizedPrivatecontent().then((res): void => {
       if (res.status == 200) {
-        this.banners = res.data.albums;
+        this.personalizedPrivatecontent = res.data.result;
       }
     });
     personalized().then((res): void => {
