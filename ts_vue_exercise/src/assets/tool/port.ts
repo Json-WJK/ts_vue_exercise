@@ -6,4 +6,4 @@ export const personalizedNewsong = () => get('/personalized/newsong') // 推荐�
 export const personalized = () => get('/personalized') // 每日推荐歌单
 export const toplist = () => get('/toplist') // toplist
 export const topArtist = (data: object) => get('/top/artist', data) // 热门歌手
-
+export const cloudsearch = (data: object) => get('/search', data) // 搜索

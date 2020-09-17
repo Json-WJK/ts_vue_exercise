@@ -1,4 +1,16 @@
 module.exports = {
+  css: {
+    loaderOptions: {
+      css: {},
+      postcss: {
+        plugins: [
+          require('postcss-px2rem')({
+            remUnit: 37.5
+          })
+        ]
+      }
+    }
+  },
   devServer: {
     proxy: { // 配置跨域
       '/v1': {

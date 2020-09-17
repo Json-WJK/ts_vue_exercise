@@ -1,20 +1,12 @@
 <template>
   <div class="home">
     <div v-if="personalizedNewsong">
-      <!-- <div class="search">
-        <nut-searchbar
-          v-model="searchVal"
-          placeText="搜索"
-          customClass="searchInput"
-          searchBtnIconColor="#ffffff"
-        ></nut-searchbar>
-      </div>-->
       <div class="mainContent">
         <!-- 搜索icon -->
-        <div class="searchIcon">
+        <div @click="goSearch" class="searchIcon">
           <nut-icon type="search" color="#fff" size="15px"></nut-icon>
         </div>
-        <nut-tab @tab-switch="tabSwitch" :line-width="20">
+        <nut-tab :line-width="20" :is-show-line="false">
           <nut-tab-panel tab-title="乐库">
             <div class="tab1">
               <!-- 轮播 -->
@@ -192,31 +184,14 @@ export default class Home extends Vue {
       }
     });
   }
-  tabSwitch(e: string): void {
-    console.log(e, "e");
+  goSearch(): void {
+    this.$router.push('/search')
   }
 }
 </script>
 <style lang="less" scoped>
 .home {
-  // 搜索
-  .search {
-    width: 100%;
-    height: 40px;
-    line-height: 40px;
-    box-sizing: border-box;
-    padding: 10px 20px 0;
-    background: linear-gradient(to right, #34a8aa, #009697);
-    position: fixed;
-    top: 0;
-    left: 0;
-    .searchInput {
-      height: 100%;
-    }
-    /deep/ #input-form {
-      height: 100%;
-    }
-  }
+  width: 100%;
   // 主体内容
   .mainContent {
     position: fixed;
@@ -227,10 +202,12 @@ export default class Home extends Vue {
     .searchIcon {
       position: absolute;
       top: 0;
-      right: 10px;
+      right: 0;
       height: 40px;
+      width: 40px;
       display: flex;
       align-items: center;
+      justify-content: center;
       z-index: 1;
     }
     /deep/ .nut-tab {
@@ -238,12 +215,12 @@ export default class Home extends Vue {
       border: none;
       background: linear-gradient(to right, #34a8aa, #009697);
       .nut-tab-link {
-        color: #fff;
+        color: #ddd;
         font-size: 13px;
       }
       .nut-tab-active a {
         color: #fff;
-        font-size: 15px;
+        font-size: 16px;
       }
       .nut-tab-title,
       .nut-tab-active,
@@ -294,22 +271,11 @@ export default class Home extends Vue {
           display: flex;
           justify-content: space-between;
           margin-top: 5px;
-          padding-bottom: 33px;
           &_item {
-            position: relative;
             width: 32%;
-            height: 0;
-            font-size: 0;
-            line-height: 0;
-            padding: 32% 0 0;
             .personalizedNewsong_content_img {
-              height: 100%;
               width: 100%;
-              position: absolute;
-              top: 0;
-              left: 0;
               img {
-                height: 100%;
                 width: 100%;
                 border-radius: 5px;
               }
