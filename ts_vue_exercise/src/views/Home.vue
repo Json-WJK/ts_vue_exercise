@@ -105,7 +105,8 @@
 import {
   personalizedPrivatecontent,
   personalizedNewsong,
-  personalized
+  personalized,
+  toplist
 } from "../assets/tool/port";
 import { Component, Vue } from "vue-property-decorator";
 @Component
@@ -113,6 +114,8 @@ export default class Home extends Vue {
   personalizedPrivatecontent: [] | null = null; // 独家放送bannber
   personalizedNewsong: [] | null = null; // 新音乐推荐
   personalized: any = [[], []]; // 推荐歌单
+  toplist: [] | null = null; // toplist
+  playlistAll: [] | null = null; // playlistAll
   searchVal = ""; // 搜索
   created() {
     personalizedNewsong().then((res): void => {
@@ -133,6 +136,12 @@ export default class Home extends Vue {
         });
       }
     });
+    toplist().then((res): void => {
+      if (res.status == 200) {
+        this.toplist = res.data.result;
+      }
+    })
+    
   }
   tabSwitch(e: string): void {
     console.log(e, "e");
@@ -144,11 +153,15 @@ export default class Home extends Vue {
   // 搜索
   .search {
     width: 100%;
-    height: 50px;
+    height: 40px;
+    line-height: 40px;
     box-sizing: border-box;
     padding: 10px 20px 0;
     background: linear-gradient(to right, #34a8aa, #009697);
     .searchInput {
+      height: 100%;
+    }
+    /deep/ #input-form {
       height: 100%;
     }
   }
@@ -160,10 +173,11 @@ export default class Home extends Vue {
       background: linear-gradient(to right, #34a8aa, #009697);
       .nut-tab-link {
         color: #fff;
+        font-size: 13px;
       }
       .nut-tab-active a {
         color: #fff;
-        font-size: 16px;
+        font-size: 15px;
       }
       .nut-tab-title,
       .nut-tab-active,
@@ -172,6 +186,7 @@ export default class Home extends Vue {
       }
       .nut-tab-title {
         border: none;
+        height: 40px;
       }
       .nut-tab-item {
         padding: 0;
@@ -270,24 +285,24 @@ export default class Home extends Vue {
           }
         }
         &_content {
-          height: 200px;
+          height: 260px;
           width: 100%;
           /deep/.nut-hor-list {
             width: 605px;
           }
           &_item {
             width: 290px;
-            height: 50px;
-            background: #eee;
+            height: 70px;
             display: flex;
             align-items: center;
             margin-top: 5px;
             &_img {
-              width: 50px;
-              height: 50px;
+              width: 70px;
+              height: 70px;
               img {
                 width: 100%;
                 height: 100%;
+                border-radius: 10px;
               }
             }
             &_text {
@@ -296,7 +311,7 @@ export default class Home extends Vue {
               display: flex;
               flex-flow: column;
               justify-content: space-evenly;
-              width: 235px;
+              width: 215px;
               &_name {
                 font-weight: bold;
                 white-space: nowrap;
