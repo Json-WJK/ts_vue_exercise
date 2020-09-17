@@ -24,10 +24,6 @@ module.exports = {
       }
     },
     port: 1234,
-    disableHostCheck: true,
-    devServer: {
-      host: "http://noname.wang",
-      port: 3000
-    } 
+    disableHostCheck: true
   }
 }

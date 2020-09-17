@@ -10,7 +10,7 @@
         @submit="search"
       ></nut-searchbar>
     </div>
-    <div class="searchResTitle">单曲</div>
+    <div v-if="searchRes.length" class="searchResTitle">单曲</div>
     <div class="searchResList">
       <div v-for="(item, index) in searchRes" :key="index" class="ListItem">
         <div class="songName">{{ item.name }}</div>
