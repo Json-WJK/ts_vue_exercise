@@ -1,6 +1,6 @@
 <template>
   <div class="home">
-    <div v-if="personalizedNewsong">
+    <div>
       <div class="mainContent">
         <!-- 搜索icon -->
         <div @click="goSearch" class="searchIcon">
@@ -10,7 +10,7 @@
           <nut-tab-panel tab-title="乐库">
             <div class="tab1">
               <!-- 轮播 -->
-              <div class="swiper">
+              <div v-if="personalizedPrivatecontent" class="swiper">
                 <nut-swiper
                   :paginationVisible="true"
                   direction="horizontal"
@@ -29,7 +29,7 @@
                 </nut-swiper>
               </div>
               <!-- 新音乐推荐 -->
-              <div class="personalizedNewsong">
+              <div v-if="personalizedNewsong" class="personalizedNewsong">
                 <div class="personalizedNewsong_title">
                   <span>新音乐推荐</span>
                   <span>
@@ -67,7 +67,7 @@
                     <nut-icon type="right" size="10px"></nut-icon>
                   </span>
                 </div>
-                <div class="personalized_content">
+                <div v-if="personalized" class="personalized_content">
                   <nut-scroller @jump="jump()">
                     <div
                       slot="list"
@@ -150,10 +150,9 @@ export default class Home extends Vue {
   personalizedPrivatecontent: [] | null = null; // 独家放送bannber
   personalizedNewsong: [] | null = null; // 新音乐推荐
   personalized: any = [[], []]; // 推荐歌单
-  toplist: [] | null = null; // toplist 
+  toplist: [] | null = null; // toplist
   playlistAll: [] | null = null; // playlistAll
   topArtist: [] | null = null; // topArtist
-  searchVal = ""; // 搜索
   created() {
     personalizedNewsong().then((res): void => {
       if (res.status == 200) {
@@ -185,19 +184,20 @@ export default class Home extends Vue {
     });
   }
   goSearch(): void {
-    this.$router.push('/search')
+    this.$router.push("/search");
   }
 }
 </script>
 <style lang="less" scoped>
 .home {
   width: 100%;
+  height: 100%;
   // 主体内容
   .mainContent {
     position: fixed;
     left: 0;
     width: 100%;
-    height: calc(100vh);
+    height: 100%;
     // 搜索框icon
     .searchIcon {
       position: absolute;
@@ -234,7 +234,7 @@ export default class Home extends Vue {
       .nut-tab-item {
         padding: 0;
         border: none;
-        height: calc(100vh - 40px);
+        height: calc(100% - 40px);
         overflow: auto;
       }
     }

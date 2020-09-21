@@ -27,19 +27,14 @@ import { Component, Vue } from "vue-property-decorator";
 export default class Search extends Vue {
   searchVal = "";
   searchRes = [];
-  mounted() {
-    const data = {
-      keywords: this.searchVal,
-    };
-  }
   search() {
     const data = {
-      keywords: this.searchVal,
+      keywords: this.searchVal
     };
     cloudsearch(data).then((res): void => {
       console.log(res);
       if (res.status == 200) {
-        this.searchRes = (res as any).data.result.songs;
+        this.searchRes = res.data.result.songs;
       }
     });
   }

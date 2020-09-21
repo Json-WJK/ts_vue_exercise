@@ -3,14 +3,18 @@
     <transition :name="transitionName">
       <router-view class="Router" />
     </transition>
+    <Play></Play>
   </div>
 </template>
 <script lang="ts">
 import { Component, Watch, Vue } from "vue-property-decorator";
-@Component
+@Component({
+  components: {
+    Play: () => import("@/components/play.vue")
+  }
+})
 export default class App extends Vue {
   transitionName = "slide-right"; //初始过渡动画方向
-
   @Watch("$route")
   gettransitionName(to: object, from: object) {
     console.log(to, from);
