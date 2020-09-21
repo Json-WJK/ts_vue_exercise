@@ -3,6 +3,7 @@
     <transition :name="data.transitionName">
       <router-view :class="data.pageClass" />
     </transition>
+    <!-- 播放器 -->
     <Play></Play>
   </div>
 </template>
@@ -17,34 +18,33 @@ export default class App extends Vue {
   data = {
     pageClass: "Router", // 页面使用的class
     pageArr: ["/"],
-    transitionName: "slide-right" //初始过渡动画方向
+    routeLength: 1, // 当前页面栈页面数量
+    transitionName: "slide-left" //初始过渡动画方向
   };
   computedClass(path: string) {
     // 选用页面样式
     this.data.pageArr.includes(path) &&
       (this.data.pageClass = "RouterContainBar");
-    console.log("计算class", this.data.pageClass);
   }
   @Watch("$route")
   gettransitionName(to: object, from: object) {
-    console.log(to, from);
     this.computedClass((to as any).path);
     // 切换动画
-    const isBack = (this.$router as any).isBack; // 监听路由变化时的状态为前进还是后退
-    if (isBack) {
-      this.data.transitionName = "slide-left";
-    } else {
+    console.log(
+      this.data.routeLength,
+      (this.$router.options.routes as any).length
+    );
+    if (this.data.routeLength > (this.$router.options.routes as any).length) {
       this.data.transitionName = "slide-right";
+    } else {
+      this.data.transitionName = "slide-left";
     }
-    (this as any).$router.isBack = false;
+    this.data.routeLength = (this.$router.options.routes as any).length;
+    console.log(this.$router);
   }
   mounted() {
+    console.log(window.history);
     this.computedClass((this.$router as any).history._startLocation);
-    console.log(
-      this.$router,
-      (this.$router as any).history.router._startLocation,
-      "查看路由"
-    );
   }
 }
 </script>
