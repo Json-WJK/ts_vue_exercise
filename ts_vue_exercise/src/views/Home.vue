@@ -150,7 +150,7 @@ export default class Home extends Vue {
   personalizedPrivatecontent: [] | null = null; // 独家放送bannber
   personalizedNewsong: [] | null = null; // 新音乐推荐
   personalized: any = [[], []]; // 推荐歌单
-  toplist: [] | null = null; // toplist
+  toplist: [] | null = null; // toplist 
   playlistAll: [] | null = null; // playlistAll
   topArtist: [] | null = null; // topArtist
   searchVal = ""; // 搜索
