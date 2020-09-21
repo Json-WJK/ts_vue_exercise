@@ -1,5 +1,5 @@
 <template>
-  <div class="Play">hahahahaha</div>
+  <div class="Play"></div>
 </template>
 
 <script lang="ts">
@@ -31,5 +31,6 @@ export default class Play extends Vue {
   bottom: 0;
   width: 100%;
   height: 40px;
+  background: #1f9e9f;
 }
 </style>

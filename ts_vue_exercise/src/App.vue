@@ -35,11 +35,12 @@ export default class App extends Vue {
   font-family: "Avenir", Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  width: 100%;
-  height: 100%;
+  min-width: 100vw;
+  width: 100vw;
+  min-height: 100vh;
   margin: auto;
   position: relative;
-
+  // 常规页面
   .Router {
     position: absolute;
     height: 100%;
@@ -47,6 +48,17 @@ export default class App extends Vue {
     top: 0;
     backface-visibility: hidden;
     perspective: 1000;
+  }
+  // 带bar页面
+  .RouterContainBar {
+    position: absolute;
+    height: 100%;
+    transition: all 0.5s ease;
+    top: 0;
+    backface-visibility: hidden;
+    perspective: 1000;
+    box-sizing: border-box;
+    padding-bottom: 40px;
   }
   .slide-left-enter,
   .slide-right-leave-active {

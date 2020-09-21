@@ -1,137 +1,135 @@
 <template>
   <div class="home">
-    <div>
-      <div class="mainContent">
-        <!-- 搜索icon -->
-        <div @click="goSearch" class="searchIcon">
-          <nut-icon type="search" color="#fff" size="15px"></nut-icon>
-        </div>
-        <nut-tab :line-width="20" :is-show-line="false">
-          <nut-tab-panel tab-title="乐库">
-            <div class="tab1">
-              <!-- 轮播 -->
-              <div v-if="personalizedPrivatecontent" class="swiper">
-                <nut-swiper
-                  :paginationVisible="true"
-                  direction="horizontal"
-                  :autoPlay="3000"
-                  :loop="true"
-                  :swiperData="personalizedPrivatecontent"
-                  ref="demo1"
+    <div class="mainContent">
+      <!-- 搜索icon -->
+      <div @click="goSearch" class="searchIcon">
+        <nut-icon type="search" color="#fff" size="15px"></nut-icon>
+      </div>
+      <nut-tab :line-width="20" :is-show-line="false">
+        <nut-tab-panel tab-title="乐库">
+          <div class="tab1">
+            <!-- 轮播 -->
+            <div v-if="personalizedPrivatecontent" class="swiper">
+              <nut-swiper
+                :paginationVisible="true"
+                direction="horizontal"
+                :autoPlay="3000"
+                :loop="true"
+                :swiperData="personalizedPrivatecontent"
+                ref="demo1"
+              >
+                <div
+                  v-for="(item,index) in personalizedPrivatecontent"
+                  :key="index"
+                  class="nut-swiper-slide"
                 >
+                  <img :src="item.sPicUrl" class="swiperImg" alt />
+                </div>
+              </nut-swiper>
+            </div>
+            <!-- 新音乐推荐 -->
+            <div v-if="personalizedNewsong" class="personalizedNewsong">
+              <div class="personalizedNewsong_title">
+                <span>新音乐推荐</span>
+                <span>
+                  更多
+                  <nut-icon type="right" size="10px"></nut-icon>
+                </span>
+              </div>
+              <div class="personalizedNewsong_content">
+                <div class="personalizedNewsong_content_item">
+                  <div class="personalizedNewsong_content_img">
+                    <img :src="personalizedNewsong[0].picUrl" alt />
+                  </div>
+                  <div class="personalizedNewsong_content_title">{{ personalizedNewsong[0].name }}</div>
+                </div>
+                <div class="personalizedNewsong_content_item">
+                  <div class="personalizedNewsong_content_img">
+                    <img :src="personalizedNewsong[1].picUrl" alt />
+                  </div>
+                  <div class="personalizedNewsong_content_title">{{ personalizedNewsong[1].name }}</div>
+                </div>
+                <div class="personalizedNewsong_content_item">
+                  <div class="personalizedNewsong_content_img">
+                    <img :src="personalizedNewsong[2].picUrl" alt />
+                  </div>
+                  <div class="personalizedNewsong_content_title">{{ personalizedNewsong[2].name }}</div>
+                </div>
+              </div>
+            </div>
+            <!-- 推荐歌单 -->
+            <div class="personalized">
+              <div class="personalized_title">
+                <span>推荐歌单</span>
+                <span>
+                  更多
+                  <nut-icon type="right" size="10px"></nut-icon>
+                </span>
+              </div>
+              <div v-if="personalized" class="personalized_content">
+                <nut-scroller @jump="jump()">
                   <div
-                    v-for="(item,index) in personalizedPrivatecontent"
+                    slot="list"
+                    class="nut-hor-list-item"
+                    v-for="(item, index) of personalized"
                     :key="index"
-                    class="nut-swiper-slide"
                   >
-                    <img :src="item.sPicUrl" class="swiperImg" alt />
-                  </div>
-                </nut-swiper>
-              </div>
-              <!-- 新音乐推荐 -->
-              <div v-if="personalizedNewsong" class="personalizedNewsong">
-                <div class="personalizedNewsong_title">
-                  <span>新音乐推荐</span>
-                  <span>
-                    更多
-                    <nut-icon type="right" size="10px"></nut-icon>
-                  </span>
-                </div>
-                <div class="personalizedNewsong_content">
-                  <div class="personalizedNewsong_content_item">
-                    <div class="personalizedNewsong_content_img">
-                      <img :src="personalizedNewsong[0].picUrl" alt />
-                    </div>
-                    <div class="personalizedNewsong_content_title">{{ personalizedNewsong[0].name }}</div>
-                  </div>
-                  <div class="personalizedNewsong_content_item">
-                    <div class="personalizedNewsong_content_img">
-                      <img :src="personalizedNewsong[1].picUrl" alt />
-                    </div>
-                    <div class="personalizedNewsong_content_title">{{ personalizedNewsong[1].name }}</div>
-                  </div>
-                  <div class="personalizedNewsong_content_item">
-                    <div class="personalizedNewsong_content_img">
-                      <img :src="personalizedNewsong[2].picUrl" alt />
-                    </div>
-                    <div class="personalizedNewsong_content_title">{{ personalizedNewsong[2].name }}</div>
-                  </div>
-                </div>
-              </div>
-              <!-- 推荐歌单 -->
-              <div class="personalized">
-                <div class="personalized_title">
-                  <span>推荐歌单</span>
-                  <span>
-                    更多
-                    <nut-icon type="right" size="10px"></nut-icon>
-                  </span>
-                </div>
-                <div v-if="personalized" class="personalized_content">
-                  <nut-scroller @jump="jump()">
-                    <div
-                      slot="list"
-                      class="nut-hor-list-item"
-                      v-for="(item, index) of personalized"
-                      :key="index"
-                    >
-                      <div v-for="(el, i) of item" :key="i" class="personalized_content_item">
-                        <div class="personalized_content_item_img">
-                          <img :src="el.picUrl" alt />
-                        </div>
-                        <div class="personalized_content_item_text">
-                          <div class="personalized_content_item_text_name">{{ el.name }}</div>
-                          <div class="personalized_content_item_text_copywriter">{{ el.copywriter }}</div>
-                        </div>
+                    <div v-for="(el, i) of item" :key="i" class="personalized_content_item">
+                      <div class="personalized_content_item_img">
+                        <img :src="el.picUrl" alt />
+                      </div>
+                      <div class="personalized_content_item_text">
+                        <div class="personalized_content_item_text_name">{{ el.name }}</div>
+                        <div class="personalized_content_item_text_copywriter">{{ el.copywriter }}</div>
                       </div>
                     </div>
-                  </nut-scroller>
+                  </div>
+                </nut-scroller>
+              </div>
+            </div>
+          </div>
+        </nut-tab-panel>
+        <nut-tab-panel tab-title="排行榜">
+          <div class="tab2">
+            <!-- 热门歌手 -->
+            <div class="topArtist">
+              <div class="topArtist_title">
+                <span>热门歌手</span>
+                <span>
+                  更多
+                  <nut-icon type="right" size="10px"></nut-icon>
+                </span>
+              </div>
+              <div class="topArtist_content">
+                <div v-for="(item, index) in topArtist" :key="index" class="topArtistItem">
+                  <div class="img">
+                    <img :src="item.img1v1Url" alt />
+                  </div>
+                  <div class="name">{{ item.name }}</div>
                 </div>
               </div>
             </div>
-          </nut-tab-panel>
-          <nut-tab-panel tab-title="排行榜">
-            <div class="tab2">
-              <!-- 热门歌手 -->
-              <div class="topArtist">
-                <div class="topArtist_title">
-                  <span>热门歌手</span>
-                  <span>
-                    更多
-                    <nut-icon type="right" size="10px"></nut-icon>
-                  </span>
-                </div>
-                <div class="topArtist_content">
-                  <div v-for="(item, index) in topArtist" :key="index" class="topArtistItem">
-                    <div class="img">
-                      <img :src="item.img1v1Url" alt />
-                    </div>
-                    <div class="name">{{ item.name }}</div>
-                  </div>
-                </div>
+            <!-- 音乐榜单 -->
+            <div class="toplist">
+              <div class="toplist_title">
+                <span>音乐榜单</span>
+                <span>
+                  更多
+                  <nut-icon type="right" size="10px"></nut-icon>
+                </span>
               </div>
-              <!-- 音乐榜单 -->
-              <div class="toplist">
-                <div class="toplist_title">
-                  <span>音乐榜单</span>
-                  <span>
-                    更多
-                    <nut-icon type="right" size="10px"></nut-icon>
-                  </span>
-                </div>
-                <div class="toplist_content">
-                  <div v-for="(item, index) in toplist" :key="index" class="toplistItem">
-                    <div class="img">
-                      <img :src="item.coverImgUrl" alt />
-                    </div>
-                    <div class="name">{{ item.name }}</div>
+              <div class="toplist_content">
+                <div v-for="(item, index) in toplist" :key="index" class="toplistItem">
+                  <div class="img">
+                    <img :src="item.coverImgUrl" alt />
                   </div>
+                  <div class="name">{{ item.name }}</div>
                 </div>
               </div>
             </div>
-          </nut-tab-panel>
-        </nut-tab>
-      </div>
+          </div>
+        </nut-tab-panel>
+      </nut-tab>
     </div>
   </div>
 </template>
@@ -192,10 +190,9 @@ export default class Home extends Vue {
 .home {
   width: 100%;
   height: 100%;
+  position: relative;
   // 主体内容
   .mainContent {
-    position: fixed;
-    left: 0;
     width: 100%;
     height: 100%;
     // 搜索框icon
@@ -210,32 +207,46 @@ export default class Home extends Vue {
       justify-content: center;
       z-index: 1;
     }
-    /deep/ .nut-tab {
-      padding: 0;
-      border: none;
-      background: linear-gradient(to right, #34a8aa, #009697);
-      .nut-tab-link {
-        color: #ddd;
-        font-size: 13px;
-      }
-      .nut-tab-active a {
-        color: #fff;
-        font-size: 16px;
-      }
-      .nut-tab-title,
-      .nut-tab-active,
-      .nut-title-nav-list {
-        background: transparent;
-      }
-      .nut-tab-title {
-        border: none;
-        height: 40px;
-      }
-      .nut-tab-item {
+    /deep/ .nut-tab-part {
+      width: 100%;
+      height: 100%;
+      .nut-tab {
         padding: 0;
         border: none;
-        height: calc(100% - 40px);
-        overflow: auto;
+        height: 100%;
+        .nut-tab-link {
+          color: #ddd;
+          font-size: 13px;
+        }
+        .nut-tab-active a {
+          color: #fff;
+          font-size: 16px;
+        }
+        .nut-tab-title,
+        .nut-tab-active,
+        .nut-title-nav-list {
+          background: transparent;
+        }
+        .nut-tab-title {
+          background: linear-gradient(to right, #34a8aa, #009697);
+          box-shadow: rgb(125, 125, 125) 0px 0px 5px;
+          border: none;
+          height: 40px;
+          position: fixed;
+          top: 0;
+          left: 0;
+          width: 100%;
+          z-index: 1;
+        }
+        .nut-tab-item {
+          padding: 40px 0 0 0;
+          border: none;
+          height: 100%;
+          .nut-tab-panel {
+            overflow: auto;
+            height: 100%;
+          }
+        }
       }
     }
     .tab1 {
