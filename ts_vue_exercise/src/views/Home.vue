@@ -188,16 +188,13 @@ export default class Home extends Vue {
 </script>
 <style lang="less" scoped>
 .home {
-  width: 100%;
-  height: 100%;
-  position: relative;
   // 主体内容
   .mainContent {
     width: 100%;
     height: 100%;
     // 搜索框icon
     .searchIcon {
-      position: absolute;
+      position: fixed;
       top: 0;
       right: 0;
       height: 40px;
@@ -205,7 +202,7 @@ export default class Home extends Vue {
       display: flex;
       align-items: center;
       justify-content: center;
-      z-index: 1;
+      z-index: 2;
     }
     /deep/ .nut-tab-part {
       width: 100%;
@@ -214,19 +211,6 @@ export default class Home extends Vue {
         padding: 0;
         border: none;
         height: 100%;
-        .nut-tab-link {
-          color: #ddd;
-          font-size: 13px;
-        }
-        .nut-tab-active a {
-          color: #fff;
-          font-size: 16px;
-        }
-        .nut-tab-title,
-        .nut-tab-active,
-        .nut-title-nav-list {
-          background: transparent;
-        }
         .nut-tab-title {
           background: linear-gradient(to right, #34a8aa, #009697);
           box-shadow: rgb(125, 125, 125) 0px 0px 5px;
@@ -237,6 +221,18 @@ export default class Home extends Vue {
           left: 0;
           width: 100%;
           z-index: 1;
+          .nut-tab-link {
+            color: #ddd;
+            font-size: 13px;
+          }
+          .nut-tab-active a {
+            color: #fff;
+            font-size: 16px;
+          }
+        }
+        .nut-tab-active,
+        .nut-title-nav-list {
+          background: transparent;
         }
         .nut-tab-item {
           padding: 40px 0 0 0;
