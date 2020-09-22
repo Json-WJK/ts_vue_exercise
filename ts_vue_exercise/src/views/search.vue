@@ -13,7 +13,12 @@
     </div>
     <div v-if="data.searchRes.length" class="searchResTitle">单曲</div>
     <div class="searchResList">
-      <div v-for="(item, index) in data.searchRes" :key="index" class="ListItem">
+      <div
+        v-for="(item, index) in data.searchRes"
+        :key="index"
+        @click="play(item)"
+        class="ListItem"
+      >
         <div class="songName">{{ item.name }}</div>
         <div class="arName">{{ item.ar[0].name }}</div>
       </div>
@@ -27,9 +32,10 @@ import { Component, Vue } from "vue-property-decorator";
 @Component
 export default class Search extends Vue {
   data = {
-    searchVal: "",
-    searchRes: []
+    searchVal: "", // 查询条件
+    searchRes: [] // 查询结果
   };
+  // 搜索
   search() {
     if (!this.data.searchVal) {
       return;
@@ -43,6 +49,10 @@ export default class Search extends Vue {
         this.data.searchRes = res.data.result.songs;
       }
     });
+  }
+  // 点击播放
+  play(music: any) {
+    this.$store.dispatch("setPalyMusicInfoA", music.id);
   }
 }
 </script>

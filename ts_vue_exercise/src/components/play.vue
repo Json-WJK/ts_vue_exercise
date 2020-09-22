@@ -1,26 +1,18 @@
 <template>
-<!-- 播放器 -->
-  <div class="Play"></div>
+  <!-- 播放器 -->
+  <div class="Play">
+    <audio v-show="false" autoplay  :src="palyMusicInfo.url"></audio>
+  </div>
 </template>
 
 <script lang="ts">
-import { musicUrl } from "../assets/tool/port";
 import { Component, Prop, Vue } from "vue-property-decorator";
 @Component
 export default class Play extends Vue {
-  @Prop()
-  id!: number;
   musicUrl = {};
-  mounted() {
-    const data = {
-      id: this.id,
-      br: 999000
-    };
-    musicUrl(data).then((res): void => {
-      if (res.status == 200) {
-        this.musicUrl = res.data;
-      }
-    });
+  get palyMusicInfo() {
+    console.log(this.$store.state.palyMusicInfo, "当前播放音乐变化");
+    return this.$store.state.palyMusicInfo;
   }
 }
 </script>
@@ -31,7 +23,7 @@ export default class Play extends Vue {
   left: 0;
   bottom: 0;
   width: 100%;
-  height: 40px;
+  height: 50px;
   background: #1f9e9f;
 }
 </style>

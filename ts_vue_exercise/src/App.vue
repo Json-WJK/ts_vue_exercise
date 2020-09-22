@@ -88,7 +88,7 @@ export default class App extends Vue {
     backface-visibility: hidden;
     perspective: 1000;
     box-sizing: border-box;
-    padding-bottom: 40px;
+    padding-bottom: 50px;
   }
   .slide-left-enter,
   .slide-right-leave-active {
