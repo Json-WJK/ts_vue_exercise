@@ -87,7 +87,7 @@ import {
   personalizedPrivatecontent,
   personalizedNewsong,
   personalized
-} from "../../assets/tool/port";
+} from "@/assets/tool/port";
 import { Component, Prop, Vue } from "vue-property-decorator";
 @Component
 export default class NutTab1 extends Vue {

@@ -1,7 +1,7 @@
 <template>
   <!-- 播放器 -->
   <div class="Play">
-    <audio v-show="false" autoplay  :src="palyMusicInfo.url"></audio>
+    <audio v-show="false" autoplay :src="palyMusicInfo.url"></audio>
   </div>
 </template>
 
@@ -10,8 +10,8 @@ import { Component, Prop, Vue } from "vue-property-decorator";
 @Component
 export default class Play extends Vue {
   musicUrl = {};
+  // 正在播放歌曲详情
   get palyMusicInfo() {
-    console.log(this.$store.state.palyMusicInfo, "当前播放音乐变化");
     return this.$store.state.palyMusicInfo;
   }
 }

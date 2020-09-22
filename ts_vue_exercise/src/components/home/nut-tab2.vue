@@ -40,7 +40,7 @@
 </template>
 
 <script lang="ts">
-import { toplist, topArtist } from "../../assets/tool/port";
+import { toplist, topArtist } from "@/assets/tool/port";
 import { Component, Prop, Vue } from "vue-property-decorator";
 @Component
 export default class NutTab1 extends Vue {

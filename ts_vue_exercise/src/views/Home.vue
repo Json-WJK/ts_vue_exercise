@@ -4,7 +4,7 @@
     <div class="mainContent">
       <!-- 搜索icon -->
       <div @click="goSearch" class="searchIcon">
-        <nut-icon type="search" color="#fff" size="15px"></nut-icon>
+        <nut-icon type="search" color="#666" size="15px"></nut-icon>
       </div>
       <nut-tab :line-width="20" :is-show-line="false">
         <nut-tab-panel tab-title="乐库">
@@ -58,8 +58,9 @@ export default class Home extends Vue {
         border: none;
         height: 100%;
         .nut-tab-title {
-          background: linear-gradient(to right, #34a8aa, #009697);
-          box-shadow: rgb(125, 125, 125) 0px 0px 5px;
+          // background: linear-gradient(to right, #34a8aa, #009697);
+          background: #fff;
+          box-shadow: rgb(125, 125, 125) 0px 0px 1px;
           border: none;
           height: 40px;
           position: fixed;
@@ -68,11 +69,12 @@ export default class Home extends Vue {
           width: 100%;
           z-index: 1;
           .nut-tab-link {
-            color: #ddd;
+            color: #666;
             font-size: 13px;
           }
           .nut-tab-active a {
-            color: #fff;
+            color: #333;
+            font-weight: bold;
             font-size: 16px;
           }
         }
