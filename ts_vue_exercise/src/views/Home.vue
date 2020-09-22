@@ -1,4 +1,5 @@
 <template>
+  <!-- 首页 -->
   <div class="home">
     <div class="mainContent">
       <!-- 搜索icon -->

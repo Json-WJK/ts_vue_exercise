@@ -1,8 +1,9 @@
 <template>
+  <!-- 搜索页 -->
   <div class="Search">
     <div class="searchInputBox">
       <nut-searchbar
-        v-model="searchVal"
+        v-model="data.searchVal"
         placeText="搜索"
         customClass="searchInput"
         searchBtnIconColor="#ffffff"
@@ -10,9 +11,9 @@
         @submit="search"
       ></nut-searchbar>
     </div>
-    <div v-if="searchRes.length" class="searchResTitle">单曲</div>
+    <div v-if="data.searchRes.length" class="searchResTitle">单曲</div>
     <div class="searchResList">
-      <div v-for="(item, index) in searchRes" :key="index" class="ListItem">
+      <div v-for="(item, index) in data.searchRes" :key="index" class="ListItem">
         <div class="songName">{{ item.name }}</div>
         <div class="arName">{{ item.ar[0].name }}</div>
       </div>
@@ -25,16 +26,21 @@ import { cloudsearch } from "../assets/tool/port";
 import { Component, Vue } from "vue-property-decorator";
 @Component
 export default class Search extends Vue {
-  searchVal = "";
-  searchRes = [];
+  data = {
+    searchVal: "",
+    searchRes: []
+  };
   search() {
+    if (!this.data.searchVal) {
+      return;
+    }
     const data = {
-      keywords: this.searchVal
+      keywords: this.data.searchVal
     };
     cloudsearch(data).then((res): void => {
       console.log(res);
       if (res.status == 200) {
-        this.searchRes = res.data.result.songs;
+        this.data.searchRes = res.data.result.songs;
       }
     });
   }

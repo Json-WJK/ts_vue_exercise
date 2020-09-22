@@ -4,7 +4,7 @@
       <router-view :class="data.pageClass" />
     </transition>
     <!-- 播放器 -->
-    <Play></Play>
+    <Play v-show="data.palyIsShow"></Play>
   </div>
 </template>
 <script lang="ts">
@@ -17,6 +17,7 @@ import { Component, Watch, Vue } from "vue-property-decorator";
 export default class App extends Vue {
   data = {
     pageClass: "Router", // 页面使用的class
+    palyIsShow: false,
     pageArr: ["/"],
     routeLength: 1, // 当前页面栈页面数量
     transitionName: "slide-left" //初始过渡动画方向
@@ -24,7 +25,15 @@ export default class App extends Vue {
   computedClass(path: string) {
     // 选用页面样式
     this.data.pageArr.includes(path) &&
-      (this.data.pageClass = "RouterContainBar");
+      (() => {
+        this.data.pageClass = "RouterContainBar";
+        this.data.palyIsShow = true;
+      })();
+    this.data.pageArr.includes(path) ||
+      (() => {
+        this.data.pageClass = "Router";
+        this.data.palyIsShow = false;
+      })();
   }
   @Watch("$route")
   gettransitionName(to: object, from: object) {
@@ -35,9 +44,9 @@ export default class App extends Vue {
       (this.$router.options.routes as any).length
     );
     if (this.data.routeLength > (this.$router.options.routes as any).length) {
-      this.data.transitionName = "slide-right";
-    } else {
       this.data.transitionName = "slide-left";
+    } else {
+      this.data.transitionName = "slide-right";
     }
     this.data.routeLength = (this.$router.options.routes as any).length;
     console.log(this.$router);
@@ -64,12 +73,12 @@ export default class App extends Vue {
     position: absolute;
     width: 100%;
     height: 100%;
-    transition: all 0.5s ease;
+    transition: all 0.3s ease;
     top: 0;
     backface-visibility: hidden;
     perspective: 1000;
   }
-  // 带bar页面
+  // 带底部播放器的页面
   .RouterContainBar {
     position: absolute;
     height: 100%;
@@ -84,13 +93,13 @@ export default class App extends Vue {
   .slide-left-enter,
   .slide-right-leave-active {
     opacity: 0;
-    transform: translate3d(-100%, 0, 0);
+    transform: translate3d(0, -100%, 0);
   }
 
   .slide-left-leave-active,
   .slide-right-enter {
     opacity: 0;
-    transform: translate3d(100%, 0, 0);
+    transform: translate3d(0, 100%, 0);
   }
 }
 </style>
