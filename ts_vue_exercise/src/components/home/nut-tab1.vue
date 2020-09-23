@@ -29,19 +29,19 @@
         </span>
       </div>
       <div class="personalizedNewsong_content">
-        <div class="personalizedNewsong_content_item">
+        <div @click="play(personalizedNewsong[0])" class="personalizedNewsong_content_item">
           <div class="personalizedNewsong_content_img">
             <img :src="personalizedNewsong[0].picUrl" alt />
           </div>
           <div class="personalizedNewsong_content_title">{{ personalizedNewsong[0].name }}</div>
         </div>
-        <div class="personalizedNewsong_content_item">
+        <div @click="play(personalizedNewsong[1])" class="personalizedNewsong_content_item">
           <div class="personalizedNewsong_content_img">
             <img :src="personalizedNewsong[1].picUrl" alt />
           </div>
           <div class="personalizedNewsong_content_title">{{ personalizedNewsong[1].name }}</div>
         </div>
-        <div class="personalizedNewsong_content_item">
+        <div @click="play(personalizedNewsong[2])" class="personalizedNewsong_content_item">
           <div class="personalizedNewsong_content_img">
             <img :src="personalizedNewsong[2].picUrl" alt />
           </div>
@@ -94,6 +94,10 @@ export default class NutTab1 extends Vue {
   personalizedPrivatecontent: [] | null = null; // 独家放送bannber
   personalizedNewsong: [] | null = null; // 新音乐推荐
   personalized: any = [[], []]; // 推荐歌单
+  // 点击播放
+  play(music: any) {
+    this.$store.dispatch("setPalyMusicInfoA", music.id);
+  }
   created() {
     personalizedNewsong().then((res): void => {
       if (res.status == 200) {
