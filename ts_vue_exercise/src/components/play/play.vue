@@ -5,6 +5,7 @@
     <audio v-show="false" ref="audio" :src="palyMusicInfo.url"></audio>
     <!-- 展示给用户的播放器 -->
     <div class="showPlay">
+      <div style="margin-left: 10px;" v-if="!palyMusicInfo.songs">选一首音乐开始播放吧</div>
       <div class="img">
         <img v-if="palyMusicInfo.songs" :src="palyMusicInfo.songs[0].al.picUrl" alt />
       </div>

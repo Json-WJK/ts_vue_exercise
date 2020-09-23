@@ -52,8 +52,7 @@ export default class App extends Vue {
     console.log(this.$router);
   }
   mounted() {
-    console.log(window.history);
-    this.computedClass((this.$router as any).history._startLocation);
+    this.computedClass((this.$router as any).app._route.fullPath);
   }
 }
 </script>
