@@ -5,7 +5,24 @@
  * 1. Correct the line height in all browsers.
  * 2. Prevent adjustments of font size after orientation changes in iOS.
  */
- 
+@font-face {
+  font-family: 'iconfont';  /* project id 2088846 */
+  src: url('//at.alicdn.com/t/font_2088846_bhe93opttcs.eot');
+  src: url('//at.alicdn.com/t/font_2088846_bhe93opttcs.eot?#iefix') format('embedded-opentype'),
+  url('//at.alicdn.com/t/font_2088846_bhe93opttcs.woff2') format('woff2'),
+  url('//at.alicdn.com/t/font_2088846_bhe93opttcs.woff') format('woff'),
+  url('//at.alicdn.com/t/font_2088846_bhe93opttcs.ttf') format('truetype'),
+  url('//at.alicdn.com/t/font_2088846_bhe93opttcs.svg#iconfont') format('svg');
+}
+.iconfont {
+  font-family:"iconfont" !important;
+  font-size:16px;
+  font-style:normal;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+
  html {
   line-height: 1.15; /* 1 */
   -webkit-text-size-adjust: 100%; /* 2 */

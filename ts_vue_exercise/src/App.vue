@@ -11,14 +11,14 @@
 import { Component, Watch, Vue } from "vue-property-decorator";
 @Component({
   components: {
-    Play: () => import("@/components/play.vue")
+    Play: () => import("@/components/play/play.vue")
   }
 })
 export default class App extends Vue {
   data = {
     pageClass: "Router", // 页面使用的class
     palyIsShow: false,
-    pageArr: ["/"],
+    pageArr: ["/", "/search"],
     routeLength: 1, // 当前页面栈页面数量
     transitionName: "slide-left" //初始过渡动画方向
   };

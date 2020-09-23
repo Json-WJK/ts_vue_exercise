@@ -35,11 +35,16 @@ export default class Search extends Vue {
     searchVal: "", // 查询条件
     searchRes: [] // 查询结果
   };
+  loading = null;
   // 搜索
   search() {
     if (!this.data.searchVal) {
       return;
     }
+    // 带文案，显示透明遮罩层（默认），自动消失
+    this.loading = (this as any).$toast.loading("加载中...", {
+      duration: 10000
+    });
     const data = {
       keywords: this.data.searchVal
     };
@@ -47,6 +52,7 @@ export default class Search extends Vue {
       console.log(res);
       if (res.status == 200) {
         this.data.searchRes = res.data.result.songs;
+        (this as any).loading.hide();
       }
     });
   }
