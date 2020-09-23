@@ -34,18 +34,36 @@
             <img :src="personalizedNewsong[0].picUrl" alt />
           </div>
           <div class="personalizedNewsong_content_title">{{ personalizedNewsong[0].name }}</div>
+          <div class="personalizedNewsong_content_songName">
+            <span
+              v-for="(el, i) in personalizedNewsong[0].song.artists"
+              :key="i"
+            >{{ i == 0? el.name: '/' + el.name }}</span>
+          </div>
         </div>
         <div @click="play(personalizedNewsong[1])" class="personalizedNewsong_content_item">
           <div class="personalizedNewsong_content_img">
             <img :src="personalizedNewsong[1].picUrl" alt />
           </div>
           <div class="personalizedNewsong_content_title">{{ personalizedNewsong[1].name }}</div>
+          <div class="personalizedNewsong_content_songName">
+            <span
+              v-for="(el, i) in personalizedNewsong[1].song.artists"
+              :key="i"
+            >{{ i == 0? el.name: '/' + el.name }}</span>
+          </div>
         </div>
         <div @click="play(personalizedNewsong[2])" class="personalizedNewsong_content_item">
           <div class="personalizedNewsong_content_img">
             <img :src="personalizedNewsong[2].picUrl" alt />
           </div>
           <div class="personalizedNewsong_content_title">{{ personalizedNewsong[2].name }}</div>
+          <div class="personalizedNewsong_content_songName">
+            <span
+              v-for="(el, i) in personalizedNewsong[2].song.artists"
+              :key="i"
+            >{{ i == 0? el.name: '/' + el.name }}</span>
+          </div>
         </div>
       </div>
     </div>
@@ -165,18 +183,25 @@ export default class NutTab1 extends Vue {
           }
         }
         .personalizedNewsong_content_title {
-          height: 28px;
+          height: 13px;
           margin-top: 5px;
-          line-height: 14px;
-          font-size: 12px;
+          line-height: 13px;
+          font-size: 13px;
           color: #333;
-          text-overflow: -o-ellipsis-lastline;
+          font-weight: bold;
           overflow: hidden;
           text-overflow: ellipsis;
-          display: -webkit-box;
-          -webkit-line-clamp: 2;
-          line-clamp: 2;
-          -webkit-box-orient: vertical;
+          white-space: nowrap;
+        }
+        .personalizedNewsong_content_songName {
+          height: 11px;
+          margin-top: 5px;
+          line-height: 11px;
+          font-size: 11px;
+          color: #666;
+          overflow: hidden;
+          text-overflow: ellipsis;
+          white-space: nowrap;
         }
       }
     }

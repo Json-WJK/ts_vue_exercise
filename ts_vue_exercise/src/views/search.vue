@@ -20,7 +20,12 @@
         class="ListItem"
       >
         <div class="songName">{{ item.name }}</div>
-        <div class="arName">{{ item.ar[0].name }}</div>
+        <div class="arName">
+          <span
+            v-for="(el, i) in item.ar"
+            :key="i"
+          >{{ i == 0? el.name: '/' + el.name }}</span>
+        </div>
       </div>
     </div>
   </div>
