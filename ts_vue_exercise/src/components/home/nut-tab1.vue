@@ -13,6 +13,7 @@
         <div
           v-for="(item,index) in personalizedPrivatecontent"
           :key="index"
+          @click="play(item)"
           class="nut-swiper-slide"
         >
           <img :src="item.sPicUrl" class="swiperImg" alt />
@@ -23,7 +24,7 @@
     <div v-if="personalizedNewsong" class="personalizedNewsong">
       <div class="personalizedNewsong_title">
         <span>新音乐推荐</span>
-        <span>
+        <span @click="GoPage">
           更多
           <nut-icon type="right" size="10px"></nut-icon>
         </span>
@@ -71,7 +72,7 @@
     <div class="personalized">
       <div class="personalized_title">
         <span>推荐歌单</span>
-        <span>
+        <span @click="GoPage">
           更多
           <nut-icon type="right" size="10px"></nut-icon>
         </span>
@@ -115,6 +116,10 @@ export default class NutTab1 extends Vue {
   // 点击播放
   play(music: any) {
     this.$store.dispatch("setPalyMusicInfoA", music.id);
+  }
+  // 跳转
+  GoPage(url?: string) {
+    (this as any).$toast.text("功能正在开发中，敬请期待");
   }
   created() {
     personalizedNewsong().then((res): void => {
