@@ -10,7 +10,7 @@
         </span>
       </div>
       <div class="topArtist_content">
-        <div v-for="(item, index) in topArtist" :key="index" class="topArtistItem">
+        <div v-for="(item, index) in topArtists" :key="index" class="topArtistItem">
           <div class="img">
             <img :src="item.img1v1Url" alt />
           </div>
@@ -40,21 +40,21 @@
 </template>
 
 <script lang="ts">
-import { toplist, topArtist } from "@/assets/tool/port";
+import { toplist, topArtists } from "@/assets/tool/port";
 import { Component, Prop, Vue } from "vue-property-decorator";
 @Component
 export default class NutTab1 extends Vue {
   toplist: [] | null = null; // 歌手榜单
-  topArtist: [] | null = null; // 所有榜单
+  topArtists: [] | null = null; // 所有榜单
   created() {
     toplist().then((res): void => {
       if (res.status == 200) {
         this.toplist = res.data.list;
       }
     });
-    topArtist({ offset: 1, type: 1, limit: 3 }).then((res): void => {
+    topArtists({ offset: 1, type: 1, limit: 3 }).then((res): void => {
       if (res.status == 200) {
-        this.topArtist = res.data.artists;
+        this.topArtists = res.data.artists;
       }
     });
   }

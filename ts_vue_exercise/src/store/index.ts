@@ -1,7 +1,7 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
 import _this from '@/main'
-import { musicUrl, musicDetail } from "@/assets/tool/port";
+import { songUrl, songDetail } from "@/assets/tool/port";
 
 Vue.use(Vuex)
 
@@ -22,19 +22,21 @@ export default new Vuex.Store({
       let ok = 0
       let url: object | null = null
       let detail: object | null = null
-      const data = {
-        id,
-        br: 999000
+      const data1 = {
+        id
       };
+      const data2 = {
+        ids: id
+      }
       // 音乐播放地址
-      musicUrl(data).then((res): void => {
+      songUrl(data1).then((res): void => {
         if (res.status == 200) {
           ok += 50
           url = res.data.data[0]
         }
       });
       // 音乐各类信息
-      musicDetail(data).then((detailRes): void => {
+      songDetail(data2).then((detailRes): void => {
         if (detailRes.status == 200) {
           ok += 50
           detail = detailRes.data

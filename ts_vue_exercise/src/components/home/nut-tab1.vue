@@ -132,7 +132,7 @@ export default class NutTab1 extends Vue {
         this.personalizedPrivatecontent = res.data.result;
       }
     });
-    personalized().then((res): void => {
+    personalized({limit: 6}).then((res): void => {
       if (res.status == 200) {
         res.data.result.map((item: object, index: number): void => {
           index < 3 && this.personalized[0].push(item);

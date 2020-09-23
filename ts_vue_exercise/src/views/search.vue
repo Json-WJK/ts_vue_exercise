@@ -21,10 +21,7 @@
       >
         <div class="songName">{{ item.name }}</div>
         <div class="arName">
-          <span
-            v-for="(el, i) in item.ar"
-            :key="i"
-          >{{ i == 0? el.name: '/' + el.name }}</span>
+          <span v-for="(el, i) in item.artists" :key="i">{{ i == 0? el.name: '/' + el.name }}</span>
         </div>
       </div>
     </div>
@@ -32,7 +29,7 @@
 </template>
 
 <script lang="ts">
-import { cloudsearch } from "../assets/tool/port";
+import { cloudsearch, searchDefault } from "@/assets/tool/port";
 import { Component, Vue } from "vue-property-decorator";
 @Component
 export default class Search extends Vue {
@@ -64,6 +61,11 @@ export default class Search extends Vue {
   // 点击播放
   play(music: any) {
     this.$store.dispatch("setPalyMusicInfoA", music.id);
+  }
+  created() {
+    searchDefault().then(res => {
+      console.log(res);
+    });
   }
 }
 </script>
