@@ -2,10 +2,20 @@
   <!-- 播放器 -->
   <div @click="goPlayDetail" class="Play">
     <!-- 异常播放器 -->
-    <audio v-show="false" ref="audio" @playing="playing" @pause="pause" :src="palyMusicInfo.url"></audio>
+    <audio
+      v-show="false"
+      ref="audio"
+      @playing="playing"
+      @pause="pause"
+      @timeupdate="timeupdate"
+      :src="palyMusicInfo.url"
+    ></audio>
     <!-- 展示给用户的播放器 -->
     <div class="showPlay">
+      <!-- 默认文案 -->
       <div style="margin-left: 10px;" v-if="!palyMusicInfo.songs">选一首音乐开始播放吧</div>
+      <!-- 当前进度 -->
+      <div class="playProportion" :style="{ width: playProportion + '%' }"></div>
       <div class="img">
         <img v-if="palyMusicInfo.songs" :src="palyMusicInfo.songs[0].al.picUrl" alt />
       </div>
@@ -39,7 +49,6 @@ export default class Play extends Vue {
   }
   // 播放器实例
   get audio() {
-    console.log("播放器实例", this.$store.state.audio);
     return this.$store.state.audio;
   }
   // 正在播放歌曲详情 如果正在播放的音乐数据发生变化 --- 则为新点击的音乐
@@ -53,8 +62,11 @@ export default class Play extends Vue {
   }
   // 当前播放器播放暂停状态
   get audioIsPlay() {
-    console.log("播放状态变化", this.$store.state.audioIsPlay);
     return this.$store.state.audioIsPlay;
+  }
+  // 当前播放进度
+  get playProportion() {
+    return this.$store.state.playProportion;
   }
   // 手动点击播放暂停事件
   PlayOrPause() {
@@ -65,12 +77,31 @@ export default class Play extends Vue {
     }
   }
   playing() {
-    console.log("播放器开始播放");
+    // console.log("播放器开始播放");
     this.setAudioIsPlay();
   }
   pause() {
-    console.log("播放器暂停播放");
+    // console.log("播放器暂停播放");
     this.setAudioIsPlay();
+  }
+  timeupdateTimeout: any = null; // 播放位置变化任务存储
+  timeupdate() {
+    console.log("当播放位置改变时");
+    this.$store.dispatch;
+    if (!this.timeupdateTimeout) {
+      this.timeupdateTimeout = setTimeout(() => {
+        (() => {
+          clearTimeout(this.timeupdateTimeout);
+          this.timeupdateTimeout = null;
+          const proportion = (
+            (this.$store.state.audio.currentTime /
+              this.$store.state.audio.duration) *
+            100
+          ).toFixed(2);
+          this.$store.commit("setPlayProportion", proportion);
+        })();
+      }, 1000);
+    }
   }
   // 更新播放器状态
   setAudioIsPlay() {
@@ -101,6 +132,14 @@ export default class Play extends Vue {
     height: 100%;
     display: flex;
     align-items: center;
+    position: relative;
+    .playProportion {
+      position: absolute;
+      top: -2px;
+      left: 0;
+      background: linear-gradient(to right, #34a8aa, #009697);
+      height: 2px;
+    }
     .img {
       width: 40px;
       height: 40px;

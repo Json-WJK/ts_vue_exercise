@@ -28,9 +28,15 @@
       </div>
       <!-- 播放操作栏 -->
       <div class="bottomBar">
-        <div @click="PlayOrPause" class="PlayOrPause">
-          <i v-if="audioIsPlay" class="iconfont">&#xe615;</i>
-          <i v-else class="iconfont">&#xe645;</i>
+        <!-- 当前播放进度条 -->
+        <div class="playProportion">
+          <div class="proportion" :style="{ width: playProportion + '%'}"></div>
+        </div>
+        <div class="buttons">
+          <div @click="PlayOrPause" class="PlayOrPause">
+            <i v-if="audioIsPlay" class="iconfont">&#xe615;</i>
+            <i v-else class="iconfont">&#xe645;</i>
+          </div>
         </div>
       </div>
     </div>
@@ -52,6 +58,10 @@ export default class PlayDetail extends Vue {
   // 当前播放器播放暂停状态
   get audioIsPlay() {
     return this.$store.state.audioIsPlay;
+  }
+  // 当前播放进度
+  get playProportion() {
+    return this.$store.state.playProportion
   }
   // 手动点击播放暂停事件
   PlayOrPause() {
@@ -155,14 +165,25 @@ export default class PlayDetail extends Vue {
       bottom: 30px;
       left: 0;
       width: 100%;
-      height: 40px;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      .PlayOrPause {
-        color: #fff;
-        .iconfont {
-          font-size: 30px;
+      .playProportion {
+        margin: 0 auto 10px;
+        width: 80%;
+        background: #eee;
+        .proportion {
+          height: 2px;
+          background: linear-gradient(to right, #34a8aa, #009697);
+        }
+      }
+      .buttons {
+        height: 40px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        .PlayOrPause {
+          color: #fff;
+          .iconfont {
+            font-size: 30px;
+          }
         }
       }
     }
