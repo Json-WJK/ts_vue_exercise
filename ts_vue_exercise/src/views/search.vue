@@ -61,7 +61,9 @@ export default class Search extends Vue {
   }
   // 点击播放
   play(music: any) {
-    this.$store.dispatch("setPalyMusicInfoA", music.id);
+    this.$store.dispatch("setPalyMusicInfoA", music.id).then((res): void => {
+      this.$router.push("/playDetail");
+    });
   }
   created() {
     searchDefault().then((res): void => {
