@@ -1,5 +1,5 @@
 <template>
-  <div class="tab2">
+  <div @click="GoPage" class="tab2">
     <!-- 热门歌手 -->
     <div class="topArtist">
       <div class="topArtist_title">
@@ -57,6 +57,10 @@ export default class NutTab1 extends Vue {
         this.topArtists = res.data.artists;
       }
     });
+  }
+  // 跳转
+  GoPage(url?: string) {
+    (this as any).$toast.text("功能正在开发中，先试试其他功能");
   }
 }
 </script>
