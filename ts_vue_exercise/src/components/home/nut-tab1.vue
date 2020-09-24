@@ -31,57 +31,21 @@
       </div>
       <div class="personalizedNewsong_content">
         <div
-          @click="play(personalizedNewsong[0])"
+          v-for="(item, index) in personalizedNewsong"
+          :key="index"
+          @click="play(item)"
           class="personalizedNewsong_content_item"
         >
           <div class="personalizedNewsong_content_img">
-            <img :src="personalizedNewsong[0].picUrl" alt />
+            <img :src="item.picUrl" alt />
           </div>
           <div class="personalizedNewsong_content_title">
-            {{ personalizedNewsong[0].name }}
+            {{ item.name }}
           </div>
           <div class="personalizedNewsong_content_songName">
-            <span
-              v-for="(el, i) in personalizedNewsong[0].song.artists"
-              :key="i"
-              >{{ i == 0 ? el.name : "/" + el.name }}</span
-            >
-          </div>
-        </div>
-        <div
-          @click="play(personalizedNewsong[1])"
-          class="personalizedNewsong_content_item"
-        >
-          <div class="personalizedNewsong_content_img">
-            <img :src="personalizedNewsong[1].picUrl" alt />
-          </div>
-          <div class="personalizedNewsong_content_title">
-            {{ personalizedNewsong[1].name }}
-          </div>
-          <div class="personalizedNewsong_content_songName">
-            <span
-              v-for="(el, i) in personalizedNewsong[1].song.artists"
-              :key="i"
-              >{{ i == 0 ? el.name : "/" + el.name }}</span
-            >
-          </div>
-        </div>
-        <div
-          @click="play(personalizedNewsong[2])"
-          class="personalizedNewsong_content_item"
-        >
-          <div class="personalizedNewsong_content_img">
-            <img :src="personalizedNewsong[2].picUrl" alt />
-          </div>
-          <div class="personalizedNewsong_content_title">
-            {{ personalizedNewsong[2].name }}
-          </div>
-          <div class="personalizedNewsong_content_songName">
-            <span
-              v-for="(el, i) in personalizedNewsong[2].song.artists"
-              :key="i"
-              >{{ i == 0 ? el.name : "/" + el.name }}</span
-            >
+            <span v-for="(el, i) in item.song.artists" :key="i">{{
+              i == 0 ? el.name : "/" + el.name
+            }}</span>
           </div>
         </div>
       </div>
@@ -209,14 +173,16 @@ export default class NutTab1 extends Vue {
     }
     &_content {
       display: flex;
-      justify-content: space-between;
       margin-top: 5px;
+      overflow-x: auto;
       &_item {
-        width: 32%;
+        width: 120px;
         .personalizedNewsong_content_img {
-          width: 100%;
+          width: 120px;
+          height: 120px;
           img {
             width: 100%;
+            height: 100%;
             border-radius: 5px;
           }
         }
@@ -239,6 +205,9 @@ export default class NutTab1 extends Vue {
           text-overflow: ellipsis;
           white-space: nowrap;
         }
+      }
+      &_item:not(:first-child) {
+        margin-left: 5px;
       }
     }
   }
