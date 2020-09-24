@@ -4,7 +4,7 @@
     <div class="searchInputBox">
       <nut-searchbar
         v-model="data.searchVal"
-        placeText="搜索"
+        :placeText="data.searchValD.showKeyword? data.searchValD.showKeyword: '搜索'"
         customClass="searchInput"
         searchBtnIconColor="#ffffff"
         @keyup.enter="search"
@@ -34,21 +34,22 @@ import { Component, Vue } from "vue-property-decorator";
 @Component
 export default class Search extends Vue {
   data = {
+    searchValD: {
+      showKeyword: "",
+      realkeyword: ""
+    }, // 默认查询条件
     searchVal: "", // 查询条件
     searchRes: [] // 查询结果
   };
   loading = null;
   // 搜索
   search() {
-    if (!this.data.searchVal) {
-      return;
-    }
     // 带文案，显示透明遮罩层（默认），自动消失
     this.loading = (this as any).$toast.loading("加载中...", {
       duration: 10000
     });
     const data = {
-      keywords: this.data.searchVal
+      keywords: this.data.searchVal || this.data.searchValD.realkeyword
     };
     cloudsearch(data).then((res): void => {
       console.log(res);
@@ -63,7 +64,11 @@ export default class Search extends Vue {
     this.$store.dispatch("setPalyMusicInfoA", music.id);
   }
   created() {
-    searchDefault().then(res => {
+    searchDefault().then((res): void => {
+      if (res.status == 200) {
+        this.data.searchValD.showKeyword = res.data.data.showKeyword;
+        this.data.searchValD.realkeyword = res.data.data.realkeyword;
+      }
       console.log(res);
     });
   }

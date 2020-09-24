@@ -50,6 +50,10 @@ export default new Vuex.Store({
             (_this as any).$toast.text("该音乐暂时无法播放，换一首试试");
             return
           }
+          // if (!(url as any).url == _this.$store.state.palyMusicInfo.url) {
+          //   (_this as any).$toast.text("正在播放这首歌哦");
+          //   return
+          // }
           const info = Object.assign(url, detail)
           context.commit('setPalyMusicInfoM', info)
         }
