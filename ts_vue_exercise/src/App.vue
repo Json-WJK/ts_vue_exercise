@@ -22,8 +22,8 @@ export default class App extends Vue {
     routeLength: 1, // 当前页面栈页面数量
     transitionName: "slide-left" //初始过渡动画方向
   };
+  // 选用页面样式
   computedClass(path: string) {
-    // 选用页面样式
     this.data.pageArr.includes(path) &&
       (() => {
         this.data.pageClass = "RouterContainBar";
@@ -92,13 +92,13 @@ export default class App extends Vue {
   .slide-left-enter,
   .slide-right-leave-active {
     opacity: 0;
-    transform: translate3d(0, -100%, 0);
+    transform: translate3d(-100%, 0, 0);
   }
 
   .slide-left-leave-active,
   .slide-right-enter {
     opacity: 0;
-    transform: translate3d(0, 100%, 0);
+    transform: translate3d(100%, 0, 0);
   }
 }
 </style>

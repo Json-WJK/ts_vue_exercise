@@ -2,6 +2,7 @@ import Vue from 'vue'
 import Vuex from 'vuex'
 import _this from '@/main'
 import { songUrl, songDetail } from "@/assets/tool/port";
+import persistedState from 'vuex-persistedstate'
 
 Vue.use(Vuex)
 
@@ -77,5 +78,6 @@ export default new Vuex.Store({
     }
   },
   modules: {
-  }
+  },
+  plugins: [persistedState({ storage: window.sessionStorage })] // 数据持久化
 })
