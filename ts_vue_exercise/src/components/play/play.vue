@@ -2,7 +2,7 @@
   <!-- 播放器 -->
   <div class="Play">
     <!-- 异常播放器 -->
-    <audio v-show="false" ref="audio" :src="palyMusicInfo.url"></audio>
+    <audio v-show="false" ref="audio" @playing="playing" @pause="pause" :src="palyMusicInfo.url"></audio>
     <!-- 展示给用户的播放器 -->
     <div class="showPlay">
       <div style="margin-left: 10px;" v-if="!palyMusicInfo.songs">选一首音乐开始播放吧</div>
@@ -22,8 +22,8 @@
       </div>
       <div class="icons">
         <div @click="PlayOrPause" class="playIcon">
-          <i v-if="isPlay" class="iconfont">&#xe66a;</i>
-          <i v-else class="iconfont" style="font-size: 21px;">&#xe612;</i>
+          <i v-if="audioIsPlay" style="font-size: 21px;" class="iconfont">&#xe612;</i>
+          <i v-else class="iconfont">&#xe66a;</i>
         </div>
       </div>
     </div>
@@ -34,20 +34,27 @@
 import { Component, Vue } from "vue-property-decorator";
 @Component
 export default class Play extends Vue {
-  musicUrl = {};
-  audio: any = null; // 播放器控件
-  isPlay = false;
   mounted() {
-    this.audio = (this as any).$refs["audio"];
+    this.$store.commit("setAudio", (this as any).$refs["audio"]);
   }
-  // 正在播放歌曲详情
+  // 播放器实例
+  get audio() {
+    console.log("播放器实例", this.$store.state.audio);
+    return this.$store.state.audio;
+  }
+  // 正在播放歌曲详情 如果正在播放的音乐数据发生变化 --- 则为新点击的音乐
   get palyMusicInfo() {
     console.log(this.$store.state.palyMusicInfo);
     setTimeout(() => {
       this.audio.play();
-      this.setIsPlay();
+      this.setAudioIsPlay();
     }, 0);
     return this.$store.state.palyMusicInfo;
+  }
+  // 当前播放器播放暂停状态
+  get audioIsPlay() {
+    console.log("播放状态变化", this.$store.state.audioIsPlay);
+    return this.$store.state.audioIsPlay;
   }
   // 手动点击播放暂停事件
   PlayOrPause() {
@@ -56,10 +63,18 @@ export default class Play extends Vue {
     } else {
       this.audio.pause();
     }
-    this.setIsPlay();
   }
-  setIsPlay() {
-    this.isPlay = this.audio.paused;
+  playing() {
+    console.log("播放器开始播放");
+    this.setAudioIsPlay();
+  }
+  pause() {
+    console.log("播放器暂停播放");
+    this.setAudioIsPlay();
+  }
+  // 更新播放器状态
+  setAudioIsPlay() {
+    this.$store.commit("setAudioIsPlay");
   }
 }
 </script>

@@ -115,7 +115,9 @@ export default class NutTab1 extends Vue {
   personalized: any = [[], []]; // 推荐歌单
   // 点击播放
   play(music: any) {
-    this.$store.dispatch("setPalyMusicInfoA", music.id);
+    this.$store.dispatch("setPalyMusicInfoA", music.id).then((res): void => {
+      this.$router.push("/playDetail");
+    });
   }
   // 跳转
   GoPage(url?: string) {
@@ -132,7 +134,7 @@ export default class NutTab1 extends Vue {
         this.personalizedPrivatecontent = res.data.result;
       }
     });
-    personalized({limit: 6}).then((res): void => {
+    personalized({ limit: 6 }).then((res): void => {
       if (res.status == 200) {
         res.data.result.map((item: object, index: number): void => {
           index < 3 && this.personalized[0].push(item);
