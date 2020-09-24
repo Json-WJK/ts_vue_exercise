@@ -123,7 +123,7 @@ export default class NutTab1 extends Vue {
   GoPage(url?: string) {
     (this as any).$toast.text("功能正在开发中，先试试其他功能");
   }
-  created() {
+  mounted() {
     personalizedNewsong().then((res): void => {
       if (res.status == 200) {
         this.personalizedNewsong = res.data.result;

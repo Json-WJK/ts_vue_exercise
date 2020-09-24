@@ -1,9 +1,7 @@
 <template>
   <div id="app">
     <transition :name="data.transitionName">
-      <keep-alive>
-        <router-view :class="data.pageClass" />
-      </keep-alive>
+      <router-view :class="data.pageClass" />
     </transition>
     <!-- 播放器 -->
     <Play v-show="data.palyIsShow"></Play>
