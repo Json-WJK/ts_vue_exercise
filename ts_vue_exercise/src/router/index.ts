@@ -3,6 +3,7 @@ import VueRouter, { RouteConfig } from 'vue-router'
 import Home from '../views/Home.vue'
 import search from '../views/search.vue'
 import playDetail from '../views/playDetail.vue'
+import playlistDetail from '../views/playlistDetail.vue'
 
 Vue.use(VueRouter)
 
@@ -21,6 +22,11 @@ const routes: Array<RouteConfig> = [
     path: '/playDetail',
     name: 'playDetail',
     component: playDetail
+  },
+  {
+    path: '/playlistDetail',
+    name: 'playlistDetail',
+    component: playlistDetail
   },
   // {
   //   path: '/about',
