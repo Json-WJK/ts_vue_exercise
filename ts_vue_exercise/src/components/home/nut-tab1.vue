@@ -202,7 +202,6 @@ export default class NutTab1 extends Vue {
         .personalizedNewsong_content_songName {
           height: 11px;
           margin-top: 5px;
-          line-height: 11px;
           font-size: 11px;
           color: #666;
           overflow: hidden;
