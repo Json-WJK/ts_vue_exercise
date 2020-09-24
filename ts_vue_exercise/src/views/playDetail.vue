@@ -23,7 +23,7 @@
         </div>
       </div>
       <!-- 旋转song图片 -->
-      <div v-if="palyMusicInfo.songs" class="songImg">
+      <div class="songImg">
         <img :src="palyMusicInfo.songs[0].al.picUrl" :class="audioIsPlay? 'spinClass': ''" alt />
       </div>
       <!-- 播放操作栏 -->
