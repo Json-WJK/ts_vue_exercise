@@ -115,7 +115,7 @@ export default class NutTab1 extends Vue {
   personalized: any = [[], []]; // 推荐歌单
   // 点击播放
   play(music: any) {
-    this.$store.dispatch("setPalyMusicInfoA", music.id).then((res): void => {
+    this.$store.dispatch("setPalyMusicInfoA", music.id).then((): void => {
       this.$router.push("/playDetail");
     });
   }

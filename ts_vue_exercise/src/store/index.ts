@@ -29,7 +29,7 @@ export default new Vuex.Store({
   actions: {
     // 请求播放器正在播放音乐详细信息
     setPalyMusicInfoA(context, id) {
-      return new Promise((resolve, reject) => {
+      return new Promise((resolve): void => {
         const loading = (_this as any).$toast.loading("加载中...", {
           duration: 10000
         });

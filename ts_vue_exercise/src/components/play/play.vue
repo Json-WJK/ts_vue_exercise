@@ -78,7 +78,11 @@ export default class Play extends Vue {
   }
   // 跳转播放器详情
   goPlayDetail() {
-    this.$router.push("/playDetail");
+    if (this.palyMusicInfo.songs) {
+      this.$router.push("/playDetail");
+    } else {
+      (this as any).$toast.text("选择一首音乐开始播放吧");
+    }
   }
 }
 </script>
