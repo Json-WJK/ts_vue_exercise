@@ -9,7 +9,7 @@
     <div class="content">
       <!-- 顶部栏 -->
       <div class="topBar">
-        <div class="goBack">
+        <div @click="$router.go(-1)" class="goBack">
           <nut-icon type="right" size="12px" color="#fff"></nut-icon>
         </div>
         <div class="info">

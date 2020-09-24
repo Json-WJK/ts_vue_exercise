@@ -1,6 +1,6 @@
 <template>
   <!-- 播放器 -->
-  <div class="Play">
+  <div @click="goPlayDetail" class="Play">
     <!-- 异常播放器 -->
     <audio v-show="false" ref="audio" @playing="playing" @pause="pause" :src="palyMusicInfo.url"></audio>
     <!-- 展示给用户的播放器 -->
@@ -21,7 +21,7 @@
         </div>
       </div>
       <div class="icons">
-        <div @click="PlayOrPause" class="playIcon">
+        <div @click.stop="PlayOrPause" class="playIcon">
           <i v-if="audioIsPlay" style="font-size: 21px;" class="iconfont">&#xe612;</i>
           <i v-else class="iconfont">&#xe66a;</i>
         </div>
@@ -75,6 +75,10 @@ export default class Play extends Vue {
   // 更新播放器状态
   setAudioIsPlay() {
     this.$store.commit("setAudioIsPlay");
+  }
+  // 跳转播放器详情
+  goPlayDetail() {
+    this.$router.push("/playDetail");
   }
 }
 </script>
