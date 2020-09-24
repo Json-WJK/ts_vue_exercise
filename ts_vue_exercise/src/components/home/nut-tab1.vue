@@ -1,22 +1,22 @@
 <template>
   <div class="tab1">
     <!-- 轮播 -->
-    <div v-if="personalizedPrivatecontent" class="swiper">
+    <div v-if="banner" class="swiper">
       <nut-swiper
         :paginationVisible="true"
         direction="horizontal"
         :autoPlay="3000"
         :loop="true"
-        :swiperData="personalizedPrivatecontent"
+        :swiperData="banner"
         ref="demo1"
       >
         <div
-          v-for="(item,index) in personalizedPrivatecontent"
+          v-for="(item,index) in banner"
           :key="index"
-          @click="play(item)"
+          @click="$toast.text('功能正在开发中，先试试其他功能')"
           class="nut-swiper-slide"
         >
-          <img :src="item.sPicUrl" class="swiperImg" alt />
+          <img :src="item.imageUrl" class="swiperImg" alt />
         </div>
       </nut-swiper>
     </div>
@@ -103,14 +103,14 @@
 
 <script lang="ts">
 import {
-  personalizedPrivatecontent,
+  banner,
   personalizedNewsong,
   personalized
 } from "@/assets/tool/port";
 import { Component, Prop, Vue } from "vue-property-decorator";
 @Component
 export default class NutTab1 extends Vue {
-  personalizedPrivatecontent: [] | null = null; // 独家放送bannber
+  banner: [] | null = null; // 独家放送bannber
   personalizedNewsong: [] | null = null; // 新音乐推荐
   personalized: any = [[], []]; // 推荐歌单
   // 点击播放
@@ -129,9 +129,9 @@ export default class NutTab1 extends Vue {
         this.personalizedNewsong = res.data.result;
       }
     });
-    personalizedPrivatecontent().then((res): void => {
+    banner().then((res): void => {
       if (res.status == 200) {
-        this.personalizedPrivatecontent = res.data.result;
+        this.banner = res.data.banners;
       }
     });
     personalized({ limit: 6 }).then((res): void => {
@@ -150,9 +150,18 @@ export default class NutTab1 extends Vue {
 .tab1 {
   // 轮播
   .swiper {
+    width: 100%;
+    height: 150.64px;
+    padding: 10px;
+    box-sizing: border-box;
+    /deep/ .nut-swiper {
+      width: 100%;
+      height: 100%;
+    }
     .swiperImg {
       height: 100%;
       width: 100%;
+      border-radius: 5px;
     }
   }
   // 新音乐推荐
