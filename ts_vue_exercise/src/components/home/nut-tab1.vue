@@ -11,7 +11,7 @@
         ref="demo1"
       >
         <div
-          v-for="(item,index) in banner"
+          v-for="(item, index) in banner"
           :key="index"
           @click="$toast.text('功能正在开发中，先试试其他功能')"
           class="nut-swiper-slide"
@@ -30,40 +30,22 @@
         </span>
       </div>
       <div class="personalizedNewsong_content">
-        <div @click="play(personalizedNewsong[0])" class="personalizedNewsong_content_item">
+        <div
+          v-for="(item, index) in personalizedNewsong"
+          :key="index"
+          @click="play(item)"
+          class="personalizedNewsong_content_item"
+        >
           <div class="personalizedNewsong_content_img">
-            <img :src="personalizedNewsong[0].picUrl" alt />
+            <img :src="item.picUrl" alt />
           </div>
-          <div class="personalizedNewsong_content_title">{{ personalizedNewsong[0].name }}</div>
+          <div class="personalizedNewsong_content_title">
+            {{ item.name }}
+          </div>
           <div class="personalizedNewsong_content_songName">
-            <span
-              v-for="(el, i) in personalizedNewsong[0].song.artists"
-              :key="i"
-            >{{ i == 0? el.name: '/' + el.name }}</span>
-          </div>
-        </div>
-        <div @click="play(personalizedNewsong[1])" class="personalizedNewsong_content_item">
-          <div class="personalizedNewsong_content_img">
-            <img :src="personalizedNewsong[1].picUrl" alt />
-          </div>
-          <div class="personalizedNewsong_content_title">{{ personalizedNewsong[1].name }}</div>
-          <div class="personalizedNewsong_content_songName">
-            <span
-              v-for="(el, i) in personalizedNewsong[1].song.artists"
-              :key="i"
-            >{{ i == 0? el.name: '/' + el.name }}</span>
-          </div>
-        </div>
-        <div @click="play(personalizedNewsong[2])" class="personalizedNewsong_content_item">
-          <div class="personalizedNewsong_content_img">
-            <img :src="personalizedNewsong[2].picUrl" alt />
-          </div>
-          <div class="personalizedNewsong_content_title">{{ personalizedNewsong[2].name }}</div>
-          <div class="personalizedNewsong_content_songName">
-            <span
-              v-for="(el, i) in personalizedNewsong[2].song.artists"
-              :key="i"
-            >{{ i == 0? el.name: '/' + el.name }}</span>
+            <span v-for="(el, i) in item.song.artists" :key="i">{{
+              i == 0 ? el.name : "/" + el.name
+            }}</span>
           </div>
         </div>
       </div>
@@ -85,13 +67,21 @@
             v-for="(item, index) of personalized"
             :key="index"
           >
-            <div v-for="(el, i) of item" :key="i" class="personalized_content_item">
+            <div
+              v-for="(el, i) of item"
+              :key="i"
+              class="personalized_content_item"
+            >
               <div class="personalized_content_item_img">
                 <img :src="el.picUrl" alt />
               </div>
               <div class="personalized_content_item_text">
-                <div class="personalized_content_item_text_name">{{ el.name }}</div>
-                <div class="personalized_content_item_text_copywriter">{{ el.copywriter }}</div>
+                <div class="personalized_content_item_text_name">
+                  {{ el.name }}
+                </div>
+                <div class="personalized_content_item_text_copywriter">
+                  {{ el.copywriter }}
+                </div>
               </div>
             </div>
           </div>
@@ -102,11 +92,7 @@
 </template>
 
 <script lang="ts">
-import {
-  banner,
-  personalizedNewsong,
-  personalized
-} from "@/assets/tool/port";
+import { banner, personalizedNewsong, personalized } from "@/assets/tool/port";
 import { Component, Prop, Vue } from "vue-property-decorator";
 @Component
 export default class NutTab1 extends Vue {
@@ -187,14 +173,16 @@ export default class NutTab1 extends Vue {
     }
     &_content {
       display: flex;
-      justify-content: space-between;
       margin-top: 5px;
+      overflow-x: auto;
       &_item {
-        width: 32%;
+        width: 120px;
         .personalizedNewsong_content_img {
-          width: 100%;
+          width: 120px;
+          height: 120px;
           img {
             width: 100%;
+            height: 100%;
             border-radius: 5px;
           }
         }
@@ -217,6 +205,9 @@ export default class NutTab1 extends Vue {
           text-overflow: ellipsis;
           white-space: nowrap;
         }
+      }
+      &_item:not(:first-child) {
+        margin-left: 5px;
       }
     }
   }

@@ -10,4 +10,6 @@ export const cloudsearch = (data?: object) => get('/search', data) // 搜索
 export const searchDefault = (data?: object) => get('/search/default', data) // 搜索默认关键词
 export const songDetail = (data?: object) => get('/song/detail', data) // 单曲详情
 export const songUrl = (data?: object) => get('/song/url', data) // 单曲播放地址
+export const playlistDetail = (data?: object) => get('/playlist/detail', data) // 获取歌单详情
+
 

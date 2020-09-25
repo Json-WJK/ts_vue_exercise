@@ -1,7 +1,7 @@
 <template>
   <!-- 播放器 -->
   <div @click="goPlayDetail" class="Play">
-    <!-- 异常播放器 -->
+    <!-- 播放器实例 -->
     <audio
       v-show="false"
       ref="audio"
@@ -86,7 +86,7 @@ export default class Play extends Vue {
   }
   timeupdateTimeout: any = null; // 播放位置变化任务存储
   timeupdate() {
-    console.log("当播放位置改变时");
+    // console.log("当播放位置改变时");
     this.$store.dispatch;
     if (!this.timeupdateTimeout) {
       this.timeupdateTimeout = setTimeout(() => {
