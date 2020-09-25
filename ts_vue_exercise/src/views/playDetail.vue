@@ -30,7 +30,7 @@
       <div class="bottomBar">
         <!-- 当前播放进度条 -->
         <div class="playProportion">
-          <div class="proportion" :style="{ width: playProportion + '%'}"></div>
+          <div class="proportion" :style="{ width: playProportion + '%' }"></div>
         </div>
         <div class="buttons">
           <div @click="PlayOrPause" class="PlayOrPause">
@@ -61,7 +61,7 @@ export default class PlayDetail extends Vue {
   }
   // 当前播放进度
   get playProportion() {
-    return this.$store.state.playProportion
+    return this.$store.state.playProportion;
   }
   // 手动点击播放暂停事件
   PlayOrPause() {
